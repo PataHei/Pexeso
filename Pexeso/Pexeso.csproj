@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{851F708D-56B8-482F-B7F0-3723D4B74359}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Pexeso</RootNamespace>
+    <AssemblyName>Pexeso</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBox1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox1.Designer.cs">
+      <DependentUpon>AboutBox1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Napoveda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Napoveda.Designer.cs">
+      <DependentUpon>Napoveda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OknoPexeso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OknoPexeso.Designer.cs">
+      <DependentUpon>OknoPexeso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutBox1.resx">
+      <DependentUpon>AboutBox1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Napoveda.resx">
+      <DependentUpon>Napoveda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OknoPexeso.resx">
+      <DependentUpon>OknoPexeso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\001-axe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\002-carriage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\003-castle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\004-catapult.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\005-crest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\006-crossbow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\007-crown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\008-knight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\009-dragon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\010-excalibur.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\011-fortress.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\012-gargoyle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\013-guardian.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\014-guillotine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\015-heraldic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\016-holy grail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\017-horse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\018-jester.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\019-king.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\020-mace.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\021-magic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\022-priest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\023-queen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\024-scroll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\025-shield.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\026-spear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\027-throne.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\028-trumpet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\029-wizard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obrazky\030-wooden mug.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Image License.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
