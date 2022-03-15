@@ -111,7 +111,7 @@
             this.obrazekPexesa1.TabIndex = 1;
             this.obrazekPexesa1.TabStop = false;
             this.obrazekPexesa1.Tag = "01";
-            this.obrazekPexesa1.Click += new System.EventHandler(this.obrazekPexesa1_Click);
+            this.obrazekPexesa1.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa2
             // 
@@ -123,7 +123,7 @@
             this.obrazekPexesa2.TabIndex = 2;
             this.obrazekPexesa2.TabStop = false;
             this.obrazekPexesa2.Tag = "02";
-            this.obrazekPexesa2.Click += new System.EventHandler(this.obrazekPexesa2_Click);
+            this.obrazekPexesa2.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa3
             // 
@@ -135,7 +135,7 @@
             this.obrazekPexesa3.TabIndex = 3;
             this.obrazekPexesa3.TabStop = false;
             this.obrazekPexesa3.Tag = "03";
-            this.obrazekPexesa3.Click += new System.EventHandler(this.obrazekPexesa3_Click);
+            this.obrazekPexesa3.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa4
             // 
@@ -147,7 +147,7 @@
             this.obrazekPexesa4.TabIndex = 4;
             this.obrazekPexesa4.TabStop = false;
             this.obrazekPexesa4.Tag = "04";
-            this.obrazekPexesa4.Click += new System.EventHandler(this.obrazekPexesa4_Click);
+            this.obrazekPexesa4.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa5
             // 
@@ -159,7 +159,7 @@
             this.obrazekPexesa5.TabIndex = 5;
             this.obrazekPexesa5.TabStop = false;
             this.obrazekPexesa5.Tag = "05";
-            this.obrazekPexesa5.Click += new System.EventHandler(this.obrazekPexesa5_Click);
+            this.obrazekPexesa5.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa6
             // 
@@ -171,7 +171,7 @@
             this.obrazekPexesa6.TabIndex = 6;
             this.obrazekPexesa6.TabStop = false;
             this.obrazekPexesa6.Tag = "06";
-            this.obrazekPexesa6.Click += new System.EventHandler(this.obrazekPexesa6_Click);
+            this.obrazekPexesa6.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa7
             // 
@@ -183,7 +183,7 @@
             this.obrazekPexesa7.TabIndex = 7;
             this.obrazekPexesa7.TabStop = false;
             this.obrazekPexesa7.Tag = "07";
-            this.obrazekPexesa7.Click += new System.EventHandler(this.obrazekPexesa7_Click);
+            this.obrazekPexesa7.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa8
             // 
@@ -195,7 +195,7 @@
             this.obrazekPexesa8.TabIndex = 8;
             this.obrazekPexesa8.TabStop = false;
             this.obrazekPexesa8.Tag = "08";
-            this.obrazekPexesa8.Click += new System.EventHandler(this.obrazekPexesa8_Click);
+            this.obrazekPexesa8.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa9
             // 
@@ -207,7 +207,7 @@
             this.obrazekPexesa9.TabIndex = 9;
             this.obrazekPexesa9.TabStop = false;
             this.obrazekPexesa9.Tag = "09";
-            this.obrazekPexesa9.Click += new System.EventHandler(this.obrazekPexesa9_Click);
+            this.obrazekPexesa9.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa10
             // 
@@ -219,7 +219,7 @@
             this.obrazekPexesa10.TabIndex = 10;
             this.obrazekPexesa10.TabStop = false;
             this.obrazekPexesa10.Tag = "10";
-            this.obrazekPexesa10.Click += new System.EventHandler(this.obrazekPexesa10_Click);
+            this.obrazekPexesa10.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa11
             // 
@@ -231,7 +231,7 @@
             this.obrazekPexesa11.TabIndex = 11;
             this.obrazekPexesa11.TabStop = false;
             this.obrazekPexesa11.Tag = "11";
-            this.obrazekPexesa11.Click += new System.EventHandler(this.obrazekPexesa11_Click);
+            this.obrazekPexesa11.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa12
             // 
@@ -243,7 +243,7 @@
             this.obrazekPexesa12.TabIndex = 12;
             this.obrazekPexesa12.TabStop = false;
             this.obrazekPexesa12.Tag = "12";
-            this.obrazekPexesa12.Click += new System.EventHandler(this.obrazekPexesa12_Click);
+            this.obrazekPexesa12.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa13
             // 
@@ -255,7 +255,7 @@
             this.obrazekPexesa13.TabIndex = 13;
             this.obrazekPexesa13.TabStop = false;
             this.obrazekPexesa13.Tag = "13";
-            this.obrazekPexesa13.Click += new System.EventHandler(this.obrazekPexesa13_Click);
+            this.obrazekPexesa13.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa14
             // 
@@ -267,7 +267,7 @@
             this.obrazekPexesa14.TabIndex = 14;
             this.obrazekPexesa14.TabStop = false;
             this.obrazekPexesa14.Tag = "14";
-            this.obrazekPexesa14.Click += new System.EventHandler(this.obrazekPexesa14_Click);
+            this.obrazekPexesa14.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa15
             // 
@@ -279,7 +279,7 @@
             this.obrazekPexesa15.TabIndex = 15;
             this.obrazekPexesa15.TabStop = false;
             this.obrazekPexesa15.Tag = "15";
-            this.obrazekPexesa15.Click += new System.EventHandler(this.obrazekPexesa15_Click);
+            this.obrazekPexesa15.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa16
             // 
@@ -291,7 +291,7 @@
             this.obrazekPexesa16.TabIndex = 16;
             this.obrazekPexesa16.TabStop = false;
             this.obrazekPexesa16.Tag = "16";
-            this.obrazekPexesa16.Click += new System.EventHandler(this.obrazekPexesa16_Click);
+            this.obrazekPexesa16.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa17
             // 
@@ -303,7 +303,7 @@
             this.obrazekPexesa17.TabIndex = 17;
             this.obrazekPexesa17.TabStop = false;
             this.obrazekPexesa17.Tag = "17";
-            this.obrazekPexesa17.Click += new System.EventHandler(this.obrazekPexesa17_Click);
+            this.obrazekPexesa17.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa18
             // 
@@ -315,7 +315,7 @@
             this.obrazekPexesa18.TabIndex = 18;
             this.obrazekPexesa18.TabStop = false;
             this.obrazekPexesa18.Tag = "18";
-            this.obrazekPexesa18.Click += new System.EventHandler(this.obrazekPexesa18_Click);
+            this.obrazekPexesa18.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa19
             // 
@@ -327,7 +327,7 @@
             this.obrazekPexesa19.TabIndex = 19;
             this.obrazekPexesa19.TabStop = false;
             this.obrazekPexesa19.Tag = "19";
-            this.obrazekPexesa19.Click += new System.EventHandler(this.obrazekPexesa19_Click);
+            this.obrazekPexesa19.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa20
             // 
@@ -339,7 +339,7 @@
             this.obrazekPexesa20.TabIndex = 20;
             this.obrazekPexesa20.TabStop = false;
             this.obrazekPexesa20.Tag = "20";
-            this.obrazekPexesa20.Click += new System.EventHandler(this.obrazekPexesa20_Click);
+            this.obrazekPexesa20.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa21
             // 
@@ -351,7 +351,7 @@
             this.obrazekPexesa21.TabIndex = 21;
             this.obrazekPexesa21.TabStop = false;
             this.obrazekPexesa21.Tag = "21";
-            this.obrazekPexesa21.Click += new System.EventHandler(this.obrazekPexesa21_Click);
+            this.obrazekPexesa21.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa22
             // 
@@ -363,7 +363,7 @@
             this.obrazekPexesa22.TabIndex = 22;
             this.obrazekPexesa22.TabStop = false;
             this.obrazekPexesa22.Tag = "22";
-            this.obrazekPexesa22.Click += new System.EventHandler(this.obrazekPexesa22_Click);
+            this.obrazekPexesa22.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa23
             // 
@@ -375,7 +375,7 @@
             this.obrazekPexesa23.TabIndex = 23;
             this.obrazekPexesa23.TabStop = false;
             this.obrazekPexesa23.Tag = "23";
-            this.obrazekPexesa23.Click += new System.EventHandler(this.obrazekPexesa23_Click);
+            this.obrazekPexesa23.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa24
             // 
@@ -387,7 +387,7 @@
             this.obrazekPexesa24.TabIndex = 24;
             this.obrazekPexesa24.TabStop = false;
             this.obrazekPexesa24.Tag = "24";
-            this.obrazekPexesa24.Click += new System.EventHandler(this.obrazekPexesa24_Click);
+            this.obrazekPexesa24.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa25
             // 
@@ -399,7 +399,7 @@
             this.obrazekPexesa25.TabIndex = 25;
             this.obrazekPexesa25.TabStop = false;
             this.obrazekPexesa25.Tag = "25";
-            this.obrazekPexesa25.Click += new System.EventHandler(this.obrazekPexesa25_Click);
+            this.obrazekPexesa25.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa26
             // 
@@ -411,7 +411,7 @@
             this.obrazekPexesa26.TabIndex = 26;
             this.obrazekPexesa26.TabStop = false;
             this.obrazekPexesa26.Tag = "26";
-            this.obrazekPexesa26.Click += new System.EventHandler(this.obrazekPexesa26_Click);
+            this.obrazekPexesa26.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa27
             // 
@@ -423,7 +423,7 @@
             this.obrazekPexesa27.TabIndex = 27;
             this.obrazekPexesa27.TabStop = false;
             this.obrazekPexesa27.Tag = "27";
-            this.obrazekPexesa27.Click += new System.EventHandler(this.obrazekPexesa27_Click);
+            this.obrazekPexesa27.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa28
             // 
@@ -435,7 +435,7 @@
             this.obrazekPexesa28.TabIndex = 28;
             this.obrazekPexesa28.TabStop = false;
             this.obrazekPexesa28.Tag = "28";
-            this.obrazekPexesa28.Click += new System.EventHandler(this.obrazekPexesa28_Click);
+            this.obrazekPexesa28.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa29
             // 
@@ -447,7 +447,7 @@
             this.obrazekPexesa29.TabIndex = 29;
             this.obrazekPexesa29.TabStop = false;
             this.obrazekPexesa29.Tag = "29";
-            this.obrazekPexesa29.Click += new System.EventHandler(this.obrazekPexesa29_Click);
+            this.obrazekPexesa29.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // obrazekPexesa30
             // 
@@ -459,7 +459,7 @@
             this.obrazekPexesa30.TabIndex = 30;
             this.obrazekPexesa30.TabStop = false;
             this.obrazekPexesa30.Tag = "30";
-            this.obrazekPexesa30.Click += new System.EventHandler(this.obrazekPexesa30_Click);
+            this.obrazekPexesa30.Click += new System.EventHandler(this.MetodaVolanaZKazdeKarty);
             // 
             // Form1
             // 

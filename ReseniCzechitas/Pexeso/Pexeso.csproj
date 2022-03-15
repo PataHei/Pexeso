@@ -46,41 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox1.cs">
+    <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutBox1.Designer.cs">
-      <DependentUpon>AboutBox1.cs</DependentUpon>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="PosledniHra.cs" />
-    <Compile Include="OknoPexeso.MenuStrips.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LogikaHry.cs" />
-    <Compile Include="Napoveda.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Napoveda.Designer.cs">
-      <DependentUpon>Napoveda.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OknoPexeso.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="OknoPexeso.Designer.cs">
-      <DependentUpon>OknoPexeso.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PraceSxml.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UlozeneHryEnum.cs" />
-    <EmbeddedResource Include="AboutBox1.resx">
-      <DependentUpon>AboutBox1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Napoveda.resx">
-      <DependentUpon>Napoveda.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="OknoPexeso.resx">
-      <DependentUpon>OknoPexeso.cs</DependentUpon>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -199,9 +174,6 @@
     <Content Include="Image License.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

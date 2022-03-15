@@ -50,12 +50,18 @@ namespace Pexeso
             Properties.Resources._030_wooden_mug
         };
 
-        Bitmap[] dilekPexesa = new Bitmap[30]; // toto vytvoří pole s 30 položkami.
+        Bitmap[] dilekPexesa = new Bitmap[30]; // toto vytvoří pole s 30 položkami - resp. 2 x 15.
 
+        int[] poleRNDCiselDvojte = new int[30]; //NAhodne indexy
+
+        PictureBox[] vsechnyKarticky = new PictureBox[30];
+
+        string cisloKarticky;
 
         public Form1() // toto je okno kde jsou pexesa
         {
             InitializeComponent();
+            
             //tady má ješte připsanou inicializaci jako by klikl na nová hra.           
         }
 
@@ -94,51 +100,48 @@ namespace Pexeso
             obrazekPexesa29.Image = null;
             obrazekPexesa30.Image = null;
             #endregion
-            
-            for (int i = 0; i < 30; i++) //tohle do všech nandá null (mělo by je to skrýt).
-            {
-                dilekPexesa[i] = null; //Pata - mozna lepsi je pouzit picture.Visible = false
-            }
-            
 
-            //vytvoří pole 15 náhodných čísel, každé musí být unikátní
+            /*
+             for (int i = 0; i < 30; i++) //tohle do všech nandá null (mělo by je to skrýt).
+             {
+                 dilekPexesa[i] = null;
+             }
+             */
+
+
+            //vytvoří pole 15 náhodných čísel, každé musí být unikátní --P.H. dat do separatni metody MichejKarticky
+            #region
             int[] poleNahodnychCisel = new int[15];
             Random generatorNahodnehoRozlozeni = new Random();
 
             for (int x = 0; x < 15; x++) //tohle je naplní náhodnými čísly.
-            {                
+            {
                 int nahodneCislo = generatorNahodnehoRozlozeni.Next(30);//toto zadává rozsah generovaných čísel (1-30).
-                                                                        //0-29 je rozsah indexu obrazku, proto argument je 30
 
                 if (poleNahodnychCisel.Contains(nahodneCislo)) //pole již obsahuje na některé předchozí pozici stejné čislo.
                 {
                     x--;
-                    //break;
+                    continue;
                 }
                 else //uloží vygenerované číslo na pozici v poli.
                 {
-                    poleNahodnychCisel[x] = nahodneCislo;  
-                }                
+                    poleNahodnychCisel[x] = nahodneCislo;
+                }
             }
 
-            int[] poleNahodnychCiselZdvojeno = poleNahodnychCisel.Concat(poleNahodnychCisel).ToArray();
-
-            /*
-            for (int q = 0; q < 15; q++) //tohle do všech nandá null (aby to mohlo generovat další rozdání).
-            {
-                poleNahodnychCisel[q] = int.MinValue;
-            }
-
-            */
+            int[] poleNahodnychCiselZdvojeno = poleNahodnychCisel.Concat(poleNahodnychCisel).ToArray(); //zdvojí to pole.
 
             //int[] combined = front.Concat(back).ToArray(); // toto je z stackoverflow.
 
             Random rnd = new Random(); // vytvoří nový (další) objekt generátoru náhody.
+            int[] poleRNDCiselDvojte = new int[30];
 
-            int[] poleRNDCiselDvojte = poleNahodnychCiselZdvojeno.OrderBy(x => rnd.Next()).ToArray();
-            
+            poleRNDCiselDvojte = poleNahodnychCiselZdvojeno.OrderBy(x => rnd.Next()).ToArray();
+            #endregion
             #region
-            //tohle by mělo dát ty náhodné čísla na obrázky do jednotlivých čtverečků.           
+
+            /*tohle by mělo dát ty náhodné čísla na obrázky do jednotlivých čtverečků.
+            
             obrazekPexesa1.Image = obrazky[poleRNDCiselDvojte[0]];
             obrazekPexesa2.Image = obrazky[poleRNDCiselDvojte[1]];
             obrazekPexesa3.Image = obrazky[poleRNDCiselDvojte[2]];
@@ -174,216 +177,92 @@ namespace Pexeso
             obrazekPexesa28.Image = obrazky[poleRNDCiselDvojte[27]];
             obrazekPexesa29.Image = obrazky[poleRNDCiselDvojte[28]];
             obrazekPexesa30.Image = obrazky[poleRNDCiselDvojte[29]];
-            
+            */
+
             #endregion
-        }
 
-        public void MetodaVolanaZKazdeKarty(int cislo)
-        {
-
-           if (cislo == 1)
-            {
-                obrazekPexesa1.Image = obrazky[cislo];
-
-            }
-
-            else if (cislo == 2)
-            {
-                obrazekPexesa2.Image = obrazky[2];
-            }
-             
+            //presunout na zacatek tridy - ma to vlastne stejnou fci jako Bitmap[] dilekPexesa
+            vsechnyKarticky = new PictureBox[] {obrazekPexesa1, obrazekPexesa2, obrazekPexesa3, obrazekPexesa4, obrazekPexesa5, obrazekPexesa6, obrazekPexesa7, obrazekPexesa8,
+            obrazekPexesa9, obrazekPexesa10, obrazekPexesa11, obrazekPexesa12, obrazekPexesa13, obrazekPexesa14, obrazekPexesa15, obrazekPexesa16, obrazekPexesa17, obrazekPexesa18, obrazekPexesa19,
+            obrazekPexesa20, obrazekPexesa21, obrazekPexesa22, obrazekPexesa23, obrazekPexesa24, obrazekPexesa25, obrazekPexesa26, obrazekPexesa27, obrazekPexesa28, obrazekPexesa29, obrazekPexesa30};
             
+            SkryjKarticky();
+
         }
 
-        #region
-        /*toto je na vytvoření vlastního plusu +
-         * 
-         * 
-         * 
-         * 
-         * 
-         */
-
-        #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        private void obrazekPexesa1_Click(object sender, EventArgs e)
+        private void SkryjKarticky()
         {
-            MetodaVolanaZKazdeKarty(1);
+            for (int i = 0; i < vsechnyKarticky.Length; i++)
+            {
+                vsechnyKarticky[i].Image = null;
+                
+            }
+
+
+        }
+
+        private void NaplnHodnotyTag()
+        {
+            for (int i = 0; i < vsechnyKarticky.Length; i++)
+            {
+                vsechnyKarticky[i].Tag = poleRNDCiselDvojte[i];
+            }
+        }
+
+        private void zobrazDilek(PictureBox pictureBox, int cisloDilku)
+        {
+             
         }
 
 
-        private void obrazekPexesa2_Click(object sender, EventArgs e)
+        private void MetodaVolanaZKazdeKarty(object sender, EventArgs e)  //EventArgs je událost.
         {
-            MetodaVolanaZKazdeKarty(2);
-        }
+            int pocetOtocenychKaret = 0;
+            PictureBox pictureBox = sender as PictureBox; //vytvoří nový objekt pictureBox typu Picturebox, a sender je kartička na kterou jsi klikl.
+            if (pocetOtocenychKaret == 0)
+            {
+                if (pictureBox.Image == null)
+                {
+                    cisloKarticky = pictureBox.Tag.ToString(); //Tagi obsahuji cisla 1 az 30, ale indexy jsou 0 az 29
+                    int cisloKartickyInt = int.Parse(cisloKarticky);
+                    pictureBox.Image = obrazky[cisloKartickyInt];
 
-        private void obrazekPexesa3_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(3);
-        }
+                    pocetOtocenychKaret++;
+                }
 
-        private void obrazekPexesa4_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(4);
-        }
+                else
+                {
+                    pictureBox.Image = null;
+                }
+            }
 
-        private void obrazekPexesa5_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(5);
-        }
+            else if (pocetOtocenychKaret == 1)
+            {
+                if (pictureBox.Image == null)
+                {
+                    //cisloKarticky = pictureBox.Tag.ToString();
+                    int cisloKartickyInt = int.Parse(cisloKarticky);
+                    pictureBox.Image = obrazky[cisloKartickyInt];
 
-        private void obrazekPexesa6_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(6);
-        }
+                    pocetOtocenychKaret++;
+                }
 
-        private void obrazekPexesa7_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(7);
-        }
+                else
+                {
+                    pictureBox.Image = null;
+                }
+            }
 
-        private void obrazekPexesa8_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(8);
-        }
+            else if (pocetOtocenychKaret==2)
+            {
+                if (cisloKarticky == pictureBox.Tag.ToString())
+                {
+                   // pictureBox.Enabled = false;
+                }
+            }
+            
+                     
 
-        private void obrazekPexesa9_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(9);
-        }
-
-        private void obrazekPexesa10_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(10);
-        }
-
-        private void obrazekPexesa11_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(11);
-        }
-
-        private void obrazekPexesa12_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(12);
-        }
-
-        private void obrazekPexesa13_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(13);
-        }
-
-        private void obrazekPexesa14_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(14);
-        }
-
-        private void obrazekPexesa15_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(15);
-        }
-
-        private void obrazekPexesa16_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(16);
-        }
-
-        private void obrazekPexesa17_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(17);
-        }
-
-        private void obrazekPexesa18_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(18);
-        }
-
-        private void obrazekPexesa19_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(19);
-        }
-
-        private void obrazekPexesa20_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(20);
-        }
-
-        private void obrazekPexesa21_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(21);
-        }
-
-        private void obrazekPexesa22_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(22);
-        }
-
-        private void obrazekPexesa23_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(23);
-        }
-
-        private void obrazekPexesa24_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(24);
-        }
-
-        private void obrazekPexesa25_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(25);
-        }
-
-        private void obrazekPexesa26_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(26);
-        }
-
-        private void obrazekPexesa27_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(27);
-        }
-
-        private void obrazekPexesa28_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(28);
-        }
-
-        private void obrazekPexesa29_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(29);
-        }
-
-        private void obrazekPexesa30_Click(object sender, EventArgs e)
-        {
-            MetodaVolanaZKazdeKarty(30);
         }
     }
 }       
