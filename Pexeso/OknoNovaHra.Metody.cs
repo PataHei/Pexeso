@@ -23,30 +23,68 @@ namespace Pexeso
         ComboBox[] hraci;
         int maxPocetHracuVeHre;
 
-        public OknoNovaHra()
+        public OknoNovaHra(int maxPocetHracuVeHre = 6)
         {
             InitializeComponent();
-            maxPocetHracuVeHre = 6;
+            this.maxPocetHracuVeHre = maxPocetHracuVeHre;
+            labelsHraci = VytvorLabelyHraci(maxPocetHracuVeHre);
+        }
+        /// <summary>
+        /// Vytvori controls Labels do pole labelsHraci. 
+        /// </summary>
+        /// <param name="maxPocetHracuVeHre"></param>
+        private Label[] VytvorLabelyHraci(int maxPocetHracuVeHre)
+        {
             labelsHraci = new Label[maxPocetHracuVeHre];
             labelsHraci[0] = labelhrac1;
+            for (int i = 1; i < labelsHraci.Length; i++)
+            {
+                VytvorLabelHrac(i);
+            }
+            return labelsHraci;
         }
 
         private void numericUpDownPocetHracu_ValueChanged(object sender, EventArgs e)
         {
-            int i = (int)numericUpDownPocetHracu.Value - 1;
-            Label label = new Label();
-            label.Name = "labelHrac" + i.ToString();
-            label.Text = "hráč " + (i+1).ToString() + ":";
-            label.TabIndex = labelhrac1.TabIndex + 1;
-            label.Location = new System.Drawing.Point(71, 141 + i * 25);
-            label.Visible = true;
+            //oznaceni hrace cislem (1 az n), nasledne je treba odecist 1 pro index v poli
+            int hracCislo = (int)numericUpDownPocetHracu.Value;
 
-            //staticke vlastnosti
-            label.AutoSize = false;
-            label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            label.Size = new System.Drawing.Size(61, 20);
+            //if (labelsHraci[hracCislo] == null) //doresit podminky
+            //{
+            //    ZobrazDalsiLabelHrac(hracCislo );
+            //}
+            //else
+            //{
+            //    SmazPosledniLabel(hracCislo - 1);
+            //}
+
+        }
+
+        private void SmazPosledniLabel(int i)
+        {
+            labelsHraci[i].Visible = false;
+
+        }
+
+        private void ZobrazDalsiLabelHrac(int i)
+        {
+            labelsHraci[i].Visible = true;
+        }
+
+        private void VytvorLabelHrac(int i)
+        {
+            Label label = new Label(); //prevezme vlastnosti labelhrac1 a nasledne se upravy ty parametry, ktere jsou individualni jako umisteni v okne, nazev, text, tab
+            label.Name = "labelHrac" + i.ToString();
+            label.Text = "hráč " + (i + 1).ToString() + ":";
+            label.Location = new System.Drawing.Point(labelhrac1.Location.X, labelhrac1.Location.Y + i * 25);
+
+            label.Size = labelhrac1.Size;
+            label.TabIndex = labelhrac1.TabIndex + i + 1;
+            label.Font = labelhrac1.Font;
+            label.Visible = false;
+            //prida label do formulare
             this.Controls.Add(label);
-                
+            //prida do seznamu labelu pro dalsi hromadne upravy    
             labelsHraci[i] = label;
         }
     }
