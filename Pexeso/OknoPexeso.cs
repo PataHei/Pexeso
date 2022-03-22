@@ -12,6 +12,9 @@ using System.Windows.Forms;
 
 namespace Pexeso
 {
+    /// <summary>
+    /// Parcialni trida se stara o hraci pole v OknePexeso
+    /// </summary>
     public partial class OknoPexeso : Form
     {
         /// <summary>
@@ -51,14 +54,16 @@ namespace Pexeso
             Properties.Resources._030_wooden_mug
         };
         
-        int AktualniPocetOdkrytychKarticek; //hodnota 0 az 2
+        
         PictureBox odkrytaPrvniKarticka; //Aktualne odkryte karticky, ktere se nasledne vyhodnoti jejich stejnost
         PictureBox[] Karticky;
+        //object[] VyrazeneKarticky; //udrzuje informaci o kratickach, ktere jiz jsou mimo hru, bude uchovavat hodnoty PictureBox.Tag
         //cesta kde se ukladaji zalohy
         public string UlozisteZaloh;
         
         //vytvori instanci hry pexeso s rozlozenim 16 karet
-        LogikaHry pexeso = new LogikaHry();
+        public LogikaHry pexeso = new LogikaHry();
+
         
         public OknoPexeso()
         {
@@ -74,24 +79,25 @@ namespace Pexeso
             //polozky pole s velikosti hry ve striptu Nova hra
             NactiPoloveneVelikostiHryDoPodmenuNovaHra(pexeso);
             //parametry souvisejici s prubehem hry
-            AktualniPocetOdkrytychKarticek = 0;
+            //AktualniPocetOdkrytychKarticek = 0;
             odkrytaPrvniKarticka = null; //pamatuje si odkryte karticky PictureBoxy
             //vytvoreni herni plochy
             Karticky = new PictureBox[pexeso.PocetKarticekVeHre]; //pamatuje si vsechny karticky PictureBoxy ve hre
+            //VyrazeneKarticky = new object[pexeso.PocetKarticekVeHre];//uklada index k obrazku v poli obrazky[], ktery byl puvodne v Picture.Tag. Informace se ulozi pod stejny index jako ma karticka v poli Karticky.
             RozdejKarty();
             // zobrazeni hernich vysledku a dalsi info v picture boxu
             ZobrazSkoreVLabelu();
             ZobrazPocetPokusuVLabelu();
             //prace s xml soubory - ukladani hry
             UlozisteZaloh = Application.StartupPath + "\\zalohy\\"; //pouziva se i dale na nastavweni ukladani her
-            openFileDialogOtevriHru.InitialDirectory = UlozisteZaloh; // nastavi vychozi adresar se zalohama
-
+            openFileDialogOtevriHru.InitialDirectory = UlozisteZaloh; // nastavi vychozi adresar se zalohama do dialugu otevri soubor
+           
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            //ulozeneZalohyHerNazvySouboru = (List<string>)ulozeneZalohyHerNazvySouboru.Deserializuj("SeznamZaloh").ToList;
         }
 
         /// <summary>
@@ -148,7 +154,7 @@ namespace Pexeso
                 Point poziceKarticky = VypoctiPoziciKartickyVOkne(velikostKarticky, pocatecniPolohaHracihoPole, UrciIndexSlouce(i, maxPocetSloupcu), UrciIndexRadku(i, maxPocetSloupcu), 10);
 
                 // naplni se pole Karticky 
-                Karticky[i] = VytvorKarticku($"pictureBox+{i}", poziceKarticky, velikostKarticky, pexeso.PoleIndexuObrazkuNaKartickach[i].ToString());
+                Karticky[i] = VytvorKarticku($"pictureBox{i}", poziceKarticky, velikostKarticky, pexeso.PoleIndexuObrazkuNaKartickach[i].ToString());
             }
 
         }
@@ -191,7 +197,7 @@ namespace Pexeso
 
         //KARTICKY
         /// <summary>
-        /// Metoda vyvolana udalosti clic na pictureBox s obrazky Karticek
+        /// Metoda vyvolana udalosti clic na pictureBox s obrazky Karticek zobrazi obrazek a vyhodnoti provedeny tah.
         /// </summary>
         /// <param name="sender">PictureBox</param>
         /// <param name="e">Clic</param>
@@ -199,27 +205,31 @@ namespace Pexeso
         {
             PictureBox pictureBox = sender as PictureBox;
             UkazSkrytyObrazek(pictureBox);
-
-            //ulozi informaci kolik obrazku je odkrytych
-            AktualniPocetOdkrytychKarticek++;
-
-            switch (AktualniPocetOdkrytychKarticek)
+            VyhodnotTah(pictureBox);
+        }
+        /// <summary>
+        /// Metoda hlida kolik je odkrytych karticek, porovnava odkryte dvojice a podle vysledku karticky zakryva nebo deaktivuje
+        /// </summary>
+        /// <param name="pictureBox"></param>
+        private void VyhodnotTah(PictureBox pictureBox)
+        {
+            switch (odkrytaPrvniKarticka)
             {
-                case 1:
+                case null:
                     //ulozi informaci o tom ktery obrazek je odkryty
                     odkrytaPrvniKarticka = pictureBox;
                     pexeso.PrictiPokus();
                     ZobrazPocetPokusuVLabelu();
                     break;
-                case 2: //pokud jsou dva obrazky uz odkryte provede kontrolu dvojice
+                default: //pokud jsou dva obrazky uz odkryte provede kontrolu dvojice                 
                     //na dalsi karticky nelze klikat dokud se dvojice nevyhodnoti a bud nevyradi ze hry nebo spatky nezakryjou
                     ZnepristupniKarticky(Karticky);
                     //vyhodnoceni dvojice
                     if (pexeso.JsouDveKartickyStejne(odkrytaPrvniKarticka.Tag.ToString(), pictureBox.Tag.ToString()))
                     {
-                        //vyradi se karticky ze hry
-                        odkrytaPrvniKarticka.Tag = null;
-                        pictureBox.Tag = null;
+                        //vyradi se karticky nalezene dvojice ze hry
+                        OdstranKartickuZeHry(odkrytaPrvniKarticka);
+                        OdstranKartickuZeHry(pictureBox);
                         //zapise se skore
                         pexeso.AktualizujSkore();
                         ZobrazSkoreVLabelu();
@@ -231,11 +241,22 @@ namespace Pexeso
                         //pokud karticky nejsou stejne, tak se spusti timer. Po dobu jednoho kliku se odkryte obrazky zobrazuji, po case se zpatky sami zakryjou.
                         Stopky.Start();
                     }
-                    AktualniPocetOdkrytychKarticek = 0;
+                    odkrytaPrvniKarticka = null;
                     break;
             }
 
         }
+        /// <summary>
+        /// Zaeviduje odebranou karticku ze hry do VyrazenychKarticek a nastavi jeji tag na null
+        /// </summary>
+        /// <param name="pictureBox"></param>
+        private void OdstranKartickuZeHry(PictureBox pictureBox)
+        {
+            //VyrazeneKarticky[int.Parse(pictureBox.Name.Substring("PictureBox".Length))] = pictureBox.Tag;
+            pictureBox.Tag = null;
+           
+        }
+
         /// <summary>
         /// Zobrazi obrazek karticky prirazenim obrazku ze seznamu Obrazky do pictureBoxu.Image podle nastavene hodnty v .Tag (ocekava int odpovidajici indexu obrazku v seznamu Obrazky) a pictureBox nastavi Enabled = false.
         /// </summary>
@@ -318,6 +339,6 @@ namespace Pexeso
             SkryjAktivniKarticky();
             ZmenDostupnostKarticek(Karticky);
         }
-        
+
     }
 }

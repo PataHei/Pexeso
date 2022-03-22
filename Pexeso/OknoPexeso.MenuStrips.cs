@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,12 @@ using System.Windows.Forms;
 
 namespace Pexeso
 {
+    /// <summary>
+    /// Parcialni trida se stara o menu polozky v zahlavi okna OknoPexesa.
+    /// </summary>
     public partial class OknoPexeso : Form
     {
+        OknoNovaHra oknoNovaHra = new OknoNovaHra();
         //TOOL STRIPS - menu v zahlavy
 
         //VOLANI NOVE HRY
@@ -20,9 +25,11 @@ namespace Pexeso
         /// <param name="e"></param>
         private void NovaHraToolStripMenuItem_Click(Object sender, EventArgs e)
         {
-            this.Controls.Clear();
-            this.InitializeComponent();
-            this.InitializujHru();
+            oknoNovaHra.Show();
+         
+            //this.Controls.Clear();
+            //this.InitializeComponent();
+            //this.InitializujHru();
         }
 
         /// <summary>
@@ -70,12 +77,13 @@ namespace Pexeso
         {
             object[] ZalohaVlastnistiKarticek = new object[Karticky.Length];
             //pomocne pole na ukladani vlastnosti pictureBoxu
-            var vlastnostiPictureBoxu = new object[4]; // { Name, tag, image, enable }
+
             for (int i = 0; i < Karticky.Length; i++)
             {
+                var vlastnostiPictureBoxu = new object[4]; // { Name, tag, <tag>image, enable }
                 vlastnostiPictureBoxu[0] = Karticky[i].Name;
                 vlastnostiPictureBoxu[1] = Karticky[i].Tag;
-                vlastnostiPictureBoxu[2] = Karticky[i].Image;
+ 
                 vlastnostiPictureBoxu[3] = Karticky[i].Enabled;
                 //zapsani pole vlastnostiPictureBoxu do pole ZalohaVlastnistiKarticek
                 ZalohaVlastnistiKarticek[i] = vlastnostiPictureBoxu;
@@ -83,14 +91,60 @@ namespace Pexeso
             return ZalohaVlastnistiKarticek;
         }
 
-        private void NastavVlastnostiPictureBoxuSeZalohy()
+        /// <summary>
+        /// Metoda vyvolana kliknutim na stripMenu Nacti hru, ktera nacte xml soubor a zavola metody na nacteni parametru do instance pexeso tridy LogikaHry
+        /// </summary>
+        /// <param name="sender">StripMenu Nacti hru</param>
+        /// <param name="e">Click</param>
+        private void NačtiHruToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < Karticky.Length; i++)
+            openFileDialogOtevriHru.ShowDialog();
+            //musi se provest az po zadani OK:
+            //pexeso = (LogikaHry)pexeso.Deserializuj(openFileDialogOtevriHru.FileName);
+            //InicializujNoveOkno();
+            //NastavVlastnostiPictureBoxuSeZalohy(pexeso.ZalohaVlastnistiKarticekSOknaPexeso); 
+
+        }
+        /// <summary>
+        /// Provede nacteni zalohy hry ze xml souboru po potvrzeni volby souboru
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void openFileDialogOtevriHru_FileOk(object sender, CancelEventArgs e)
+        {
+            pexeso = (LogikaHry)pexeso.Deserializuj(openFileDialogOtevriHru.FileName);
+            InicializujNoveOkno();
+            NastavVlastnostiPictureBoxuSeZalohy(pexeso.ZalohaVlastnistiKarticekSOknaPexeso);
+        }
+
+        /// <summary>
+        /// Nacte parametry instance pexeso tridy LogikaHry a nastavi tak hru do stavu v zaloze
+        /// </summary>
+        /// <param name="zalohaVlastnistiKarticek"></param>
+        private void NastavVlastnostiPictureBoxuSeZalohy(object[] zalohaVlastnistiKarticek)
+        {
+            try
             {
-                //var vlastnostiPictureBoxu = (object)pexeso.ZalohaVlastnistiKarticek[i]; //{ tag, image, enable }
-                //Karticky[i].Tag = vlastnostiPictureBoxu;
-                
+                for (int i = 0; i < Karticky.Length; i++)
+                {
+                    object[] vlastnostiPictureBoxu = (object[])zalohaVlastnistiKarticek[i]; // { Name, Tag, Image, Enable }
+                    Karticky[i].Name = (string)vlastnostiPictureBoxu[0];
+                    Karticky[i].Tag = (string)vlastnostiPictureBoxu[1];
+                    if (Karticky[i].Tag == null) //pokud je karticka vyrazena, tak se obrazek nacte se pole obrazky pomoci indexu s pole pexeso.PoleIndexuObrazkuNaKartickach
+                    {
+                        Karticky[i].Image = obrazky[pexeso.PoleIndexuObrazkuNaKartickach[i]]; 
+                    }
+                    Karticky[i].Enabled = (bool)vlastnostiPictureBoxu[3];
+                }
             }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Hru nelze načíst ze zalohy.", "Načítání hry ze zalohy.", MessageBoxButtons.OK);
+                return;
+            }
+
+
         }
         /// <summary>
         /// Metoda po kliknuti na polozku Uloz hru v menu, ulozi xml soubor s parametry instance pexeso a nazev souboru do Listu ulozeneZalohyHerNazvySouboru.
@@ -100,12 +154,14 @@ namespace Pexeso
         private void UložHruToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //VytvorZalohuKaticek();
-            string nazevSouboru = "";
-            nazevSouboru = nazevSouboru.VytvorNazev("hra");
-            pexeso.ZalohaVlastnistiKarticek = VytvorZalohuKaticek(); //vytvori se v instanci pexeso tridy LogikaHry zaloha nastaveni obrazku v kartickach.
+            string prefix = "hra";
+            string nazevSouboru = prefix.VytvorNazev();
+            //vytvori se v instanci pexeso tridy LogikaHry zaloha nastaveni obrazku v kartickach.
+            pexeso.ZalohaVlastnistiKarticekSOknaPexeso = VytvorZalohuKaticek();
+            //tvorba xml
             bool xmlUlozeno;
             pexeso.UlozInstanciDoXML(nazevSouboru, UlozisteZaloh, out xmlUlozeno);
-            //povrzeni o provedenem ukladani xml
+            //povrzeni uzivateli o provedenem ukladani xml
             if (xmlUlozeno)
             {
                 MessageBox.Show("Hra byla uložena.", "Ukládání hry", MessageBoxButtons.OK);
@@ -115,15 +171,7 @@ namespace Pexeso
                 MessageBox.Show("Ukládání hry se nepovedlo.", "Ukládání hry", MessageBoxButtons.OK);
             }
         }
-
-        private void NačtiHruToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            openFileDialogOtevriHru.ShowDialog();
-            pexeso = (LogikaHry)pexeso.Deserializuj(openFileDialogOtevriHru.FileName);
-            InicializujNoveOkno();
-            NastavVlastnostiPictureBoxuSeZalohy();
-            
-        }
+    
 
         //HRACI
         //bude umoznovat pridavat, ubyrat hrace, prohlizet herni staticstiky spojene s odehranyma hrama

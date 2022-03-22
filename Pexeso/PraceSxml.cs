@@ -22,6 +22,8 @@ namespace Pexeso
         /// </summary>
         /// <param name="instanceObjektu">objekt urceny k serializaci</param>
         /// <param name="nazevSouboru">string ktery bude pouzit na vygenerovani nazvu xml souboru</param>
+        /// <param name="adresa">cesta kde ma byt ulozeny soubor xml</param>
+        /// <param name="ulozeno">bool hodnota true pokud problehlo ulozeni xml</param>
         /// <returns>string obsahujici xml</returns>
         public static void UlozInstanciDoXML(this object instanceObjektu, string nazevSouboru, string adresa, out bool ulozeno) 
         {
@@ -32,16 +34,16 @@ namespace Pexeso
                 //XmlSerializer serializerHryPexeso = new XmlSerializer(typeof(object)); //vytvori serializator, ktery bere promenene typu LogikaHry. typeof bere parametr, ktery urcuje typ promenne
                 XmlSerializer serializerHryPexeso = new XmlSerializer(instanceObjektu.GetType()); //alternativa, ktera typ promenne zjistuje fci GetType()
 
-                using (var sw = new StringWriter()) //StringWriter() metoda s knihovny system IO
-                {
+               // using (var sw = new StringWriter()) //StringWriter() metoda s knihovny system IO
+               // {
 
                     using (XmlWriter writer = XmlWriter.Create(nazevAcesta)) //Writer zapise xml do souboru xml
                     {                                                       
-                        serializerHryPexeso.Serialize(sw, instanceObjektu);
+                        serializerHryPexeso.Serialize(writer, instanceObjektu);
                         //xml = sww.ToString(); // Your XML
                         ulozeno = true;
                     }
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -65,7 +67,6 @@ namespace Pexeso
                     using (StreamReader sr = new StreamReader(nazevSouboru)) //vytvori objek na precteni xml
                     {
                         //TODO
-                        //instanceObjektu.Deserialize(instanceObjektu);
                         instanceObjektu = serializer.Deserialize(sr);
                     }  
                 }
@@ -82,10 +83,9 @@ namespace Pexeso
         /// <summary>
         /// Vygeneruje automaticky nazev pro soubor. ten se sklada se zadaneho prefixu a data ulozeni (format: yyMMddHHmmss)
         /// </summary>
-        /// <param name="nazev">promena, ktera ma obsahovat vygenerovany nazev pro soubor</param>
         /// <param name="prefix">textovy retezec, ktery ma byt pred retezcem reprezentujici datum a cas ulozeni</param>
         /// <returns>string s nazvem souboru ve tvaru hraDatum</returns>
-        public static string VytvorNazev(this string nazev, string prefix = "soubor")
+        public static string VytvorNazev(this string prefix)
         {
             return $"{prefix}{DateTime.Now:yyMMddHHmmss}.xml";
         }

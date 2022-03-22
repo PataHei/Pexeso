@@ -87,7 +87,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(976, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(976, 28);
             this.menuStrip1.TabIndex = 20;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -99,7 +99,7 @@
             this.načtiHruToolStripMenuItem,
             this.konecToolStripMenuItem});
             this.hraToolStripMenuItem.Name = "hraToolStripMenuItem";
-            this.hraToolStripMenuItem.Size = new System.Drawing.Size(47, 26);
+            this.hraToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
             this.hraToolStripMenuItem.Text = "Hra";
             // 
             // novaHraToolStripMenuItem
@@ -154,7 +154,7 @@
             this.smažHráčeToolStripMenuItem,
             this.statistikyHerToolStripMenuItem});
             this.hračiAStatistikyToolStripMenuItem.Name = "hračiAStatistikyToolStripMenuItem";
-            this.hračiAStatistikyToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.hračiAStatistikyToolStripMenuItem.Size = new System.Drawing.Size(131, 24);
             this.hračiAStatistikyToolStripMenuItem.Text = "Hrači a statistiky";
             // 
             // novýHráčToolStripMenuItem
@@ -209,7 +209,7 @@
             this.HelpToolStripMenuItem,
             this.infoToolStripMenuItem});
             this.hraciToolStripMenuItem.Name = "hraciToolStripMenuItem";
-            this.hraciToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
+            this.hraciToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.hraciToolStripMenuItem.Text = "Help";
             // 
             // HelpToolStripMenuItem
@@ -228,7 +228,7 @@
             // 
             // Stopky
             // 
-            this.Stopky.Interval = 2000;
+            this.Stopky.Interval = 1000;
             this.Stopky.Tick += new System.EventHandler(this.Stopky_Tick);
             // 
             // PocetPokusuPopisek
@@ -255,6 +255,7 @@
             // openFileDialogOtevriHru
             // 
             this.openFileDialogOtevriHru.FileName = "hra";
+            this.openFileDialogOtevriHru.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogOtevriHru_FileOk);
             // 
             // OknoPexeso
             // 

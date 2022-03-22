@@ -17,7 +17,12 @@ namespace Pexeso
         public int Score;
         public int PocetPokusu;
         //vlastnosti k zalohovani hry prevzatych s tridy s rozhranim pro uzivatele
-        public object[] ZalohaVlastnistiKarticek;
+        public object[] ZalohaVlastnistiKarticekSOknaPexeso;
+
+        //vytvori instanci hracu
+        public int pocetHracu;
+        Hrac[] seznamHracu;
+
         //KONSTRUKTORY--------------------------------------------------------
 
         /// <summary>
@@ -29,7 +34,12 @@ namespace Pexeso
             PocetHracu = 1;
             VygenerujPoleNahodnePromichanychIndexuObrazkuNaKartickach(3 * PocetKarticekVeHre);
             Score = 0;
-            //ZalohaVlastnistiKarticek = new IEnumerable[PocetKarticekVeHre];
+            ZalohaVlastnistiKarticekSOknaPexeso = new object[PocetKarticekVeHre];
+
+            //sprava hracu
+            pocetHracu = 1;
+            seznamHracu = new Hrac[pocetHracu];
+            seznamHracu[0] = new Hrac("hrac", 0, 0);
         }
 
         /// <summary>
