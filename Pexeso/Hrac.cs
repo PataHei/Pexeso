@@ -11,29 +11,57 @@ namespace Pexeso
     /// </summary>
     public class Hrac
     {
-        public string Presdivka;
-        public int Skore;
-        public int PocetTahu;
+        string prezdivka;
+        int skore;
+        int pocetTahu;
 
-        public Hrac(string presdivka, int skore = 0, int pocetTahu = 0) 
+        public Hrac(string prezdivka, int skore = 0, int pocetTahu = 0) 
         {
-            Presdivka = presdivka;
-            Skore = skore;
-            PocetTahu = pocetTahu;
+            this.prezdivka = prezdivka;
+            this.skore = skore;
+            this.pocetTahu = pocetTahu;
         }
 
+        //METODY
+        /// <summary>
+        /// Umozni hraci zmenit prezdivku.
+        /// </summary>
+        /// <param name="prezdivka"></param>
         public void PrejmenujHrace(string prezdivka)
         { 
-            Presdivka = prezdivka;
+            this.prezdivka = prezdivka;
         }
 
-        public void ZapisSkore(int skore)
-        { 
-            Skore = skore;
-        }
-        public void ZapisPocetTahu(int pocetTahu)
+        public string VratJmeno()
         {
-            PocetTahu = pocetTahu;
+            return prezdivka;
         }
+        /// <summary>
+        /// Pripise nove ziskane skore k celkovemu skore. Obvykle se pricita 1 bod, ale muzou existovat i jine moznosti podle pravidel hry
+        /// </summary>
+        /// <param name="ziskaneSkore">int skore, ktere je treba hraci pricist k jiz ziskanemu skore</param>
+        public void PripisSkore(int ziskaneSkore)
+        { 
+            this.skore += ziskaneSkore;
+        }
+
+        /// <summary>
+        /// Pricte jeden tah k celkevemu poctu provedenych tahu
+        /// </summary>
+        public void PripisPocetTahu()
+        {
+            this.pocetTahu++;
+        }
+
+        public int VratSkore()
+        {
+            return skore;
+        }
+
+        public int VratPocetPokusu()
+        {
+            return pocetTahu;
+        }
+
     }
 }

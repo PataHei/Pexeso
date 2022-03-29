@@ -13,51 +13,48 @@ namespace Pexeso
     /// Parcialni trida se stara o menu polozky v zahlavi okna OknoPexesa.
     /// </summary>
     public partial class OknoPexeso : Form
-    {
-        OknoNovaHra oknoNovaHra = new OknoNovaHra();
+    { 
         //TOOL STRIPS - menu v zahlavy
 
         //VOLANI NOVE HRY
         /// <summary>
-        /// Po kliknuti obnovy hru s vychozim nastavenim.
+        /// Po kliknuti na stript Nova hra se vytvori instance tridy OknoNovaHra, coz je modalni dialogove okno Nova hra
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void NovaHraToolStripMenuItem_Click(Object sender, EventArgs e)
         {
-            oknoNovaHra.Show();
-         
-            //this.Controls.Clear();
-            //this.InitializeComponent();
-            //this.InitializujHru();
+            //Otevre se dialog Nova hra
+            OknoNovaHra oknoNovaHra = new OknoNovaHra(NactiPoloveneVelikostiHryDoPodmenuNovaHra(pexeso), 4);
+            oknoNovaHra.ShowDialog(); //ShowDialog otevre modalni okno, ktere se musi zavrit cancelem nebo ok, Show() okno otevre jako druhe oknu a lze volne prechazet k rozehrane hre a to zde nechceme.
+            if (oknoNovaHra.DialogResult == DialogResult.OK)
+            {
+                //pokud je dialog Nova hra uzavren potvrzenim OK, pak se prenastavi parametry inst. pexeso a reinicializuje se OknoPexeso
+                pexeso = new LogikaHry(oknoNovaHra.PocetKarticekVeHre, oknoNovaHra.zadaniHraciVeHre, oknoNovaHra.pocetHracu); 
+                MessageBox.Show($"Pocet hracu bude {pexeso.PocetHracu} a karet ve hre bude {pexeso.PocetKarticekVeHre}.");
+                InicializujNoveOkno();
+                
+                //otazka co se stane s instanci oknoNovaHra??
+            }
+            
         }
 
         /// <summary>
         /// Nacte pole poctyKarticekVeHre do Items toolStripComboboxu. Uzivatel bude moc vybirat velikost herniho pole ze seznamu v menu Nova hra
         /// </summary>
-        /// <param name="logikaHry"></param>
-        void NactiPoloveneVelikostiHryDoPodmenuNovaHra(LogikaHry logikaHry)
+        /// <param name="logikaHry">instance tridy LogikaHry</param>
+        object[] NactiPoloveneVelikostiHryDoPodmenuNovaHra(LogikaHry logikaHry)
         {
             int[] importPoctyKarticekVeHre = logikaHry.VratPolePovolenychPoctuKarticekVeHre();
+            //int[] je treba prevest na object[]
             object[] poctyKarticekVehre = new object[importPoctyKarticekVeHre.Length];
 
             for (int i = 0; i < importPoctyKarticekVeHre.Length; i++)
             {
                 poctyKarticekVehre[i] = importPoctyKarticekVeHre[i];
             }
-            toolStripComboBoxVelikostHernihoPole.Items.AddRange(poctyKarticekVehre);
-        }
-
-        /// <summary>
-        /// Po zvoleni velikosti hraciho pole (poctu karticek ve hre) vytvori novou hru a aktualizuje okno Pexesa
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ToolStripComboBoxVelikostHernihoPole_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ToolStripComboBox toolStripCombo = sender as ToolStripComboBox;
-            pexeso = new LogikaHry("pocetKarticekVeHre", (int)toolStripCombo.SelectedItem);
-            InicializujNoveOkno();
+            //toolStripComboBoxVelikostHernihoPole.Items.AddRange(poctyKarticekVehre);
+            return poctyKarticekVehre;
         }
 
         private void InicializujNoveOkno()
@@ -139,13 +136,11 @@ namespace Pexeso
             }
             catch (Exception)
             {
-
                 MessageBox.Show("Hru nelze načíst ze zalohy.", "Načítání hry ze zalohy.", MessageBoxButtons.OK);
                 return;
             }
-
-
         }
+
         /// <summary>
         /// Metoda po kliknuti na polozku Uloz hru v menu, ulozi xml soubor s parametry instance pexeso a nazev souboru do Listu ulozeneZalohyHerNazvySouboru.
         /// </summary>
@@ -196,7 +191,7 @@ namespace Pexeso
         private void InfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutBox1 info = new AboutBox1();
-            info.Show();
+            info.ShowDialog();
         }
 
         /// <summary>

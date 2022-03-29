@@ -17,8 +17,10 @@ namespace Pexeso
         private NumericUpDown numericUpDownPocetHracu;
         private Button buttonVytvor;
         private Button buttonCancel;
-        private ComboBox comboBox1;
+        private ComboBox comboBoxPocetKarticek;
         private Label labelhrac1;
+        private ComboBox comboBoxJmenoHrace1;
+        private TextBox textBoxNoveJmeno;
         private Label label1;
 
 
@@ -30,8 +32,10 @@ namespace Pexeso
             this.label1 = new System.Windows.Forms.Label();
             this.buttonVytvor = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxPocetKarticek = new System.Windows.Forms.ComboBox();
             this.labelhrac1 = new System.Windows.Forms.Label();
+            this.comboBoxJmenoHrace1 = new System.Windows.Forms.ComboBox();
+            this.textBoxNoveJmeno = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPocetHracu)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,7 +64,7 @@ namespace Pexeso
             this.numericUpDownPocetHracu.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericUpDownPocetHracu.Location = new System.Drawing.Point(176, 41);
             this.numericUpDownPocetHracu.Maximum = new decimal(new int[] {
-            6,
+            1,
             0,
             0,
             0});
@@ -91,6 +95,7 @@ namespace Pexeso
             // 
             // buttonVytvor
             // 
+            this.buttonVytvor.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonVytvor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonVytvor.Location = new System.Drawing.Point(109, 312);
             this.buttonVytvor.Name = "buttonVytvor";
@@ -101,6 +106,7 @@ namespace Pexeso
             // 
             // buttonCancel
             // 
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancel.Location = new System.Drawing.Point(340, 312);
             this.buttonCancel.Name = "buttonCancel";
@@ -109,35 +115,65 @@ namespace Pexeso
             this.buttonCancel.Text = "Zahoď";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // comboBoxPocetKarticek
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(517, 43);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(56, 24);
-            this.comboBox1.TabIndex = 9;
+            this.comboBoxPocetKarticek.FormattingEnabled = true;
+            this.comboBoxPocetKarticek.Location = new System.Drawing.Point(517, 43);
+            this.comboBoxPocetKarticek.Name = "comboBoxPocetKarticek";
+            this.comboBoxPocetKarticek.Size = new System.Drawing.Size(56, 24);
+            this.comboBoxPocetKarticek.TabIndex = 9;
+            this.comboBoxPocetKarticek.SelectedIndexChanged += new System.EventHandler(this.comboBoxPocetKarticek_SelectedIndexChanged);
             // 
             // labelhrac1
             // 
             this.labelhrac1.AutoSize = true;
             this.labelhrac1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelhrac1.Location = new System.Drawing.Point(58, 139);
+            this.labelhrac1.Location = new System.Drawing.Point(58, 128);
             this.labelhrac1.Name = "labelhrac1";
             this.labelhrac1.Size = new System.Drawing.Size(61, 20);
             this.labelhrac1.TabIndex = 10;
             this.labelhrac1.Text = "hrač 1:";
             // 
+            // comboBoxJmenoHrace1
+            // 
+            this.comboBoxJmenoHrace1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxJmenoHrace1.FormattingEnabled = true;
+            this.comboBoxJmenoHrace1.Items.AddRange(new object[] {
+            "přidat jméno"});
+            this.comboBoxJmenoHrace1.Location = new System.Drawing.Point(126, 124);
+            this.comboBoxJmenoHrace1.Name = "comboBoxJmenoHrace1";
+            this.comboBoxJmenoHrace1.Size = new System.Drawing.Size(191, 28);
+            this.comboBoxJmenoHrace1.TabIndex = 11;
+            this.comboBoxJmenoHrace1.Tag = 0;
+            this.comboBoxJmenoHrace1.SelectedValueChanged += new System.EventHandler(this.comboBoxJmenoHrace_SelectedValueChanged);
+            this.comboBoxJmenoHrace1.TextChanged += new System.EventHandler(this.comboBoxJmenoHrace_TextChanged);
+            // 
+            // textBoxNoveJmeno
+            // 
+            this.textBoxNoveJmeno.Enabled = false;
+            this.textBoxNoveJmeno.Location = new System.Drawing.Point(404, 128);
+            this.textBoxNoveJmeno.MaxLength = 20;
+            this.textBoxNoveJmeno.Name = "textBoxNoveJmeno";
+            this.textBoxNoveJmeno.Size = new System.Drawing.Size(169, 22);
+            this.textBoxNoveJmeno.TabIndex = 12;
+            this.textBoxNoveJmeno.Text = "zadej nove jmeno";
+            // 
             // OknoNovaHra
             // 
+            this.AcceptButton = this.buttonVytvor;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(628, 383);
+            this.Controls.Add(this.textBoxNoveJmeno);
+            this.Controls.Add(this.comboBoxJmenoHrace1);
             this.Controls.Add(this.labelhrac1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBoxPocetKarticek);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonVytvor);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDownPocetHracu);
             this.Controls.Add(this.labelPocetKartiček);
             this.Controls.Add(this.labelPocetHracu);
+            this.MaximizeBox = false;
             this.Name = "OknoNovaHra";
             this.Text = "Nová hra";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPocetHracu)).EndInit();
@@ -146,5 +182,6 @@ namespace Pexeso
 
         }
 
+        
     }
 }

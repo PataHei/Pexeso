@@ -54,17 +54,15 @@ namespace Pexeso
             Properties.Resources._030_wooden_mug
         };
         
-        
         PictureBox odkrytaPrvniKarticka; //Aktualne odkryte karticky, ktere se nasledne vyhodnoti jejich stejnost
         PictureBox[] Karticky;
         //object[] VyrazeneKarticky; //udrzuje informaci o kratickach, ktere jiz jsou mimo hru, bude uchovavat hodnoty PictureBox.Tag
         //cesta kde se ukladaji zalohy
         public string UlozisteZaloh;
         
-        //vytvori instanci hry pexeso s rozlozenim 16 karet
+        //vytvori instanci hry pexeso s rozlozenim 16 karet pro jednoho hrace
         public LogikaHry pexeso = new LogikaHry();
 
-        
         public OknoPexeso()
         {
             InitializeComponent();
@@ -91,8 +89,9 @@ namespace Pexeso
             //prace s xml soubory - ukladani hry
             UlozisteZaloh = Application.StartupPath + "\\zalohy\\"; //pouziva se i dale na nastavweni ukladani her
             openFileDialogOtevriHru.InitialDirectory = UlozisteZaloh; // nastavi vychozi adresar se zalohama do dialugu otevri soubor
-           
-            
+            //priradi jmeno hrace do labelJmenoHrace
+            labelJmenoHrace.Text = pexeso.seznamHracu[pexeso.AktualniHracNarade].VratJmeno();
+   
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -211,14 +210,15 @@ namespace Pexeso
         /// Metoda hlida kolik je odkrytych karticek, porovnava odkryte dvojice a podle vysledku karticky zakryva nebo deaktivuje
         /// </summary>
         /// <param name="pictureBox"></param>
-        private void VyhodnotTah(PictureBox pictureBox)
+        /// <param name="indexHrace">int. index hrace v poli pexeso.seznamHracu. Pokud jde o hru jednoho hrace neni treba zadavat.</param>
+        private void VyhodnotTah(PictureBox pictureBox, int indexHrace = 0)
         {
             switch (odkrytaPrvniKarticka)
             {
                 case null:
                     //ulozi informaci o tom ktery obrazek je odkryty
                     odkrytaPrvniKarticka = pictureBox;
-                    pexeso.PrictiPokus();
+                    pexeso.PrictiPokus(pexeso.seznamHracu[indexHrace]);
                     ZobrazPocetPokusuVLabelu();
                     break;
                 default: //pokud jsou dva obrazky uz odkryte provede kontrolu dvojice                 
@@ -231,7 +231,7 @@ namespace Pexeso
                         OdstranKartickuZeHry(odkrytaPrvniKarticka);
                         OdstranKartickuZeHry(pictureBox);
                         //zapise se skore
-                        pexeso.AktualizujSkore();
+                        pexeso.AktualizujSkore(pexeso.seznamHracu[indexHrace]);
                         ZobrazSkoreVLabelu();
                         //zbyle karticky ve hre se odemknou pro klikani
                         ZmenDostupnostKarticek(Karticky);
@@ -273,17 +273,19 @@ namespace Pexeso
         /// <summary>
         /// V Label hodnotaPocetPokusu nastavi Text na aktualni hodnotu skore. V okne se zobrazi skore
         /// </summary>
-        private void ZobrazPocetPokusuVLabelu()
+        /// <param name="indexHrace">int. index hrace v poli pexeso.seznamHracu. Pokud jde o hru jednoho hrace neni treba zadavat.</param>
+        private void ZobrazPocetPokusuVLabelu(int indexHrace = 0)
         {
-            hodnotaPocetPokusu.Text = pexeso.PocetPokusu.ToString();
+            hodnotaPocetPokusu.Text = pexeso.seznamHracu[indexHrace].VratPocetPokusu().ToString();
         }
 
         /// <summary>
         /// Zobrazi aktualni hodnotu skore v okne. Hodnotu labelScore.Text aktualizuje.
         /// </summary>
-        private void ZobrazSkoreVLabelu()
+        /// <param name="indexHrace">int. index hrace v poli pexeso.seznamHracu. Pokud jde o hru jednoho hrace neni treba zadavat.</param>
+        private void ZobrazSkoreVLabelu(int indexHrace = 0)
         {
-            labelScore.Text = pexeso.Score.ToString();
+            labelScore.Text = pexeso.seznamHracu[indexHrace].VratSkore().ToString();
         }
 
         //METODY NASTAVUJICI VLASTNOSTI KARTICEK - PICTUREBOX
@@ -329,7 +331,7 @@ namespace Pexeso
 
         //TIMER
         /// <summary>
-        /// Meri cas po ktery je odkryta dvojice karticek. Po jednom tiknuti karticky se zakryji (SkryjAktivniKarticky()), aktivni karticky ve hre se odemknou (ZmenDostupnostKarticek()) a timer se zastavi.
+        /// Meri cas po ktery je odkryta dvojice karticek. Po jednom tiknuti karticky se zakryji (SkryjAktivniKarticky()), aktivni karticky ve hre se odemknou (ZmenDostupnostKarticek()) a timer se zastavi. Dojde k posunu hry na dalsiho hrace.
         /// </summary>
         /// <param name="sender">pictureBox</param>
         /// <param name="e">Pokud dve odkryte karticky nejsou stejne</param>
@@ -338,6 +340,8 @@ namespace Pexeso
             Stopky.Stop();
             SkryjAktivniKarticky();
             ZmenDostupnostKarticek(Karticky);
+            pexeso.ZmenHraceNaRade();
+            labelJmenoHrace.Text = pexeso.seznamHracu[pexeso.AktualniHracNarade].VratJmeno();
         }
 
     }

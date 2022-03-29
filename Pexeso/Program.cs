@@ -16,7 +16,8 @@ namespace Pexeso
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new OknoPexeso());
+            OknoPexeso oknoPexeso = new OknoPexeso();
+            Application.Run(oknoPexeso);
         }
     }
 }

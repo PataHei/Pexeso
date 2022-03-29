@@ -34,8 +34,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.hraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.novaHraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripComboBoxVelikostHernihoPole = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripComboBoxPocetHracu = new System.Windows.Forms.ToolStripComboBox();
             this.uložHruToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.načtiHruToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.konecToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,6 +52,7 @@
             this.PocetPokusuPopisek = new System.Windows.Forms.Label();
             this.hodnotaPocetPokusu = new System.Windows.Forms.Label();
             this.openFileDialogOtevriHru = new System.Windows.Forms.OpenFileDialog();
+            this.labelJmenoHrace = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,7 +86,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(976, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(976, 30);
             this.menuStrip1.TabIndex = 20;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -99,31 +98,15 @@
             this.načtiHruToolStripMenuItem,
             this.konecToolStripMenuItem});
             this.hraToolStripMenuItem.Name = "hraToolStripMenuItem";
-            this.hraToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
+            this.hraToolStripMenuItem.Size = new System.Drawing.Size(47, 26);
             this.hraToolStripMenuItem.Text = "Hra";
             // 
             // novaHraToolStripMenuItem
             // 
-            this.novaHraToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripComboBoxVelikostHernihoPole,
-            this.toolStripComboBoxPocetHracu});
             this.novaHraToolStripMenuItem.Name = "novaHraToolStripMenuItem";
             this.novaHraToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.novaHraToolStripMenuItem.Text = "Nova hra";
             this.novaHraToolStripMenuItem.Click += new System.EventHandler(this.NovaHraToolStripMenuItem_Click);
-            // 
-            // toolStripComboBoxVelikostHernihoPole
-            // 
-            this.toolStripComboBoxVelikostHernihoPole.Name = "toolStripComboBoxVelikostHernihoPole";
-            this.toolStripComboBoxVelikostHernihoPole.Size = new System.Drawing.Size(145, 28);
-            this.toolStripComboBoxVelikostHernihoPole.Text = "Počet kartiček";
-            this.toolStripComboBoxVelikostHernihoPole.SelectedIndexChanged += new System.EventHandler(this.ToolStripComboBoxVelikostHernihoPole_SelectedIndexChanged);
-            // 
-            // toolStripComboBoxPocetHracu
-            // 
-            this.toolStripComboBoxPocetHracu.Name = "toolStripComboBoxPocetHracu";
-            this.toolStripComboBoxPocetHracu.Size = new System.Drawing.Size(145, 28);
-            this.toolStripComboBoxPocetHracu.Text = "Počet hráčů";
             // 
             // uložHruToolStripMenuItem
             // 
@@ -154,7 +137,7 @@
             this.smažHráčeToolStripMenuItem,
             this.statistikyHerToolStripMenuItem});
             this.hračiAStatistikyToolStripMenuItem.Name = "hračiAStatistikyToolStripMenuItem";
-            this.hračiAStatistikyToolStripMenuItem.Size = new System.Drawing.Size(131, 24);
+            this.hračiAStatistikyToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
             this.hračiAStatistikyToolStripMenuItem.Text = "Hrači a statistiky";
             // 
             // novýHráčToolStripMenuItem
@@ -209,7 +192,7 @@
             this.HelpToolStripMenuItem,
             this.infoToolStripMenuItem});
             this.hraciToolStripMenuItem.Name = "hraciToolStripMenuItem";
-            this.hraciToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.hraciToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
             this.hraciToolStripMenuItem.Text = "Help";
             // 
             // HelpToolStripMenuItem
@@ -257,11 +240,22 @@
             this.openFileDialogOtevriHru.FileName = "hra";
             this.openFileDialogOtevriHru.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogOtevriHru_FileOk);
             // 
+            // labelJmenoHrace
+            // 
+            this.labelJmenoHrace.AutoSize = true;
+            this.labelJmenoHrace.Font = new System.Drawing.Font("Monotype Corsiva", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelJmenoHrace.Location = new System.Drawing.Point(70, 45);
+            this.labelJmenoHrace.Name = "labelJmenoHrace";
+            this.labelJmenoHrace.Size = new System.Drawing.Size(67, 24);
+            this.labelJmenoHrace.TabIndex = 23;
+            this.labelJmenoHrace.Text = "hráčxxx";
+            // 
             // OknoPexeso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(976, 881);
+            this.Controls.Add(this.labelJmenoHrace);
             this.Controls.Add(this.hodnotaPocetPokusu);
             this.Controls.Add(this.PocetPokusuPopisek);
             this.Controls.Add(this.labelPocetBodu);
@@ -284,7 +278,6 @@
         private System.Windows.Forms.Label labelPocetBodu;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem hraToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem novaHraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem konecToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hraciToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem HelpToolStripMenuItem;
@@ -292,9 +285,6 @@
         private System.Windows.Forms.Timer Stopky;
         private System.Windows.Forms.Label PocetPokusuPopisek;
         private System.Windows.Forms.Label hodnotaPocetPokusu;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBoxVelikostHernihoPole;
-        private System.Windows.Forms.ToolStripMenuItem uložHruToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem načtiHruToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hračiAStatistikyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem novýHráčToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem načtiHráčeToolStripMenuItem;
@@ -303,8 +293,11 @@
         private System.Windows.Forms.ToolStripMenuItem statistikaHerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem smažHráčeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem statistikyHerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBoxPocetHracu;
         public System.Windows.Forms.OpenFileDialog openFileDialogOtevriHru;
+        private System.Windows.Forms.ToolStripMenuItem novaHraToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uložHruToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem načtiHruToolStripMenuItem;
+        private System.Windows.Forms.Label labelJmenoHrace;
     }
 }
 
