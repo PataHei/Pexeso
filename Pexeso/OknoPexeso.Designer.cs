@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.labelScore = new System.Windows.Forms.Label();
+            this.labelScoreValue = new System.Windows.Forms.Label();
             this.labelPocetBodu = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.hraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,21 +50,21 @@
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Stopky = new System.Windows.Forms.Timer(this.components);
             this.PocetPokusuPopisek = new System.Windows.Forms.Label();
-            this.hodnotaPocetPokusu = new System.Windows.Forms.Label();
+            this.labelHodnotaPocetPokusu = new System.Windows.Forms.Label();
             this.openFileDialogOtevriHru = new System.Windows.Forms.OpenFileDialog();
             this.labelJmenoHrace = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // labelScore
+            // labelScoreValue
             // 
-            this.labelScore.AutoSize = true;
-            this.labelScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelScore.Location = new System.Drawing.Point(236, 78);
-            this.labelScore.Name = "labelScore";
-            this.labelScore.Size = new System.Drawing.Size(26, 29);
-            this.labelScore.TabIndex = 7;
-            this.labelScore.Text = "0";
+            this.labelScoreValue.AutoSize = true;
+            this.labelScoreValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelScoreValue.Location = new System.Drawing.Point(236, 78);
+            this.labelScoreValue.Name = "labelScoreValue";
+            this.labelScoreValue.Size = new System.Drawing.Size(26, 29);
+            this.labelScoreValue.TabIndex = 7;
+            this.labelScoreValue.Text = "0";
             // 
             // labelPocetBodu
             // 
@@ -86,7 +86,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(976, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(976, 28);
             this.menuStrip1.TabIndex = 20;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -98,7 +98,7 @@
             this.načtiHruToolStripMenuItem,
             this.konecToolStripMenuItem});
             this.hraToolStripMenuItem.Name = "hraToolStripMenuItem";
-            this.hraToolStripMenuItem.Size = new System.Drawing.Size(47, 26);
+            this.hraToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
             this.hraToolStripMenuItem.Text = "Hra";
             // 
             // novaHraToolStripMenuItem
@@ -137,7 +137,7 @@
             this.smažHráčeToolStripMenuItem,
             this.statistikyHerToolStripMenuItem});
             this.hračiAStatistikyToolStripMenuItem.Name = "hračiAStatistikyToolStripMenuItem";
-            this.hračiAStatistikyToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.hračiAStatistikyToolStripMenuItem.Size = new System.Drawing.Size(131, 24);
             this.hračiAStatistikyToolStripMenuItem.Text = "Hrači a statistiky";
             // 
             // novýHráčToolStripMenuItem
@@ -192,7 +192,7 @@
             this.HelpToolStripMenuItem,
             this.infoToolStripMenuItem});
             this.hraciToolStripMenuItem.Name = "hraciToolStripMenuItem";
-            this.hraciToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
+            this.hraciToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.hraciToolStripMenuItem.Text = "Help";
             // 
             // HelpToolStripMenuItem
@@ -224,21 +224,21 @@
             this.PocetPokusuPopisek.TabIndex = 21;
             this.PocetPokusuPopisek.Text = "Počet pokusů:";
             // 
-            // hodnotaPocetPokusu
+            // labelHodnotaPocetPokusu
             // 
-            this.hodnotaPocetPokusu.AutoSize = true;
-            this.hodnotaPocetPokusu.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hodnotaPocetPokusu.Location = new System.Drawing.Point(653, 78);
-            this.hodnotaPocetPokusu.Name = "hodnotaPocetPokusu";
-            this.hodnotaPocetPokusu.Size = new System.Drawing.Size(26, 29);
-            this.hodnotaPocetPokusu.TabIndex = 22;
-            this.hodnotaPocetPokusu.Text = "0";
-            this.hodnotaPocetPokusu.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.labelHodnotaPocetPokusu.AutoSize = true;
+            this.labelHodnotaPocetPokusu.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelHodnotaPocetPokusu.Location = new System.Drawing.Point(653, 78);
+            this.labelHodnotaPocetPokusu.Name = "labelHodnotaPocetPokusu";
+            this.labelHodnotaPocetPokusu.Size = new System.Drawing.Size(26, 29);
+            this.labelHodnotaPocetPokusu.TabIndex = 22;
+            this.labelHodnotaPocetPokusu.Text = "0";
+            this.labelHodnotaPocetPokusu.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // openFileDialogOtevriHru
             // 
             this.openFileDialogOtevriHru.FileName = "hra";
-            this.openFileDialogOtevriHru.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogOtevriHru_FileOk);
+            this.openFileDialogOtevriHru.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialogOtevriHru_FileOk);
             // 
             // labelJmenoHrace
             // 
@@ -256,10 +256,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(976, 881);
             this.Controls.Add(this.labelJmenoHrace);
-            this.Controls.Add(this.hodnotaPocetPokusu);
+            this.Controls.Add(this.labelHodnotaPocetPokusu);
             this.Controls.Add(this.PocetPokusuPopisek);
             this.Controls.Add(this.labelPocetBodu);
-            this.Controls.Add(this.labelScore);
+            this.Controls.Add(this.labelScoreValue);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -274,7 +274,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label labelScore;
+        private System.Windows.Forms.Label labelScoreValue;
         private System.Windows.Forms.Label labelPocetBodu;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem hraToolStripMenuItem;
@@ -284,7 +284,7 @@
         private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
         private System.Windows.Forms.Timer Stopky;
         private System.Windows.Forms.Label PocetPokusuPopisek;
-        private System.Windows.Forms.Label hodnotaPocetPokusu;
+        private System.Windows.Forms.Label labelHodnotaPocetPokusu;
         private System.Windows.Forms.ToolStripMenuItem hračiAStatistikyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem novýHráčToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem načtiHráčeToolStripMenuItem;

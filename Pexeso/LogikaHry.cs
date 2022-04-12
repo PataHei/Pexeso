@@ -7,20 +7,33 @@ using System.Threading.Tasks;
 
 namespace Pexeso
 {
+    
     public class LogikaHry
     {
-        readonly static Dictionary<int, int> rozlozeni = new Dictionary<int, int> { { 8, 4 }, { 10, 5 }, { 12, 4 }, { 16, 4 }, { 18, 6 }, { 20, 5 }, { 24, 6 }, { 30, 6 }, { 36, 6 } }; 
+        readonly static Dictionary<int, int> rozlozeni = new Dictionary<int, int> { { 8, 4 }, { 10, 5 }, { 12, 4 }, { 16, 4 }, { 18, 6 }, { 20, 5 }, { 24, 6 }, { 30, 6 }, { 36, 6 }, { 56, 8 } };
+
+        /// <summary>
+        /// obsahuje seznam ruznych pexeso her lisici se napr. zpusobem pocitani skore
+        /// </summary>
+        public enum DruhHry
+        {
+            KlasickaHra = 0,
+            ZaporneBodyZaSpatnyTah = 1,
+        }
 
         public int PocetKarticekVeHre;
         public int[] PoleIndexuObrazkuNaKartickach; //uchovava indexi odkazujici na nacitane obrazky
         
         //vlastnosti k zalohovani hry prevzatych s tridy s rozhranim pro uzivatele
         public object[] ZalohaVlastnistiKarticekSOknaPexeso;
+        //public string[] ZalohaHraci;
 
         //vytvori instanci hracu
         public int PocetHracu;
         public Hrac[] seznamHracu; //pole instanci hrac, ktery uchovava informaci o presdivce, skore a poctu tahu
         public int AktualniHracNarade;
+
+
         //KONSTRUKTORY--------------------------------------------------------
 
         /// <summary>
@@ -29,8 +42,9 @@ namespace Pexeso
         public LogikaHry()
         {
             PocetKarticekVeHre = 16;
-            VygenerujPoleNahodnePromichanychIndexuObrazkuNaKartickach(3 * PocetKarticekVeHre);
+            VygenerujPoleNahodnePromichanychIndexuObrazkuNaKartickach();
             ZalohaVlastnistiKarticekSOknaPexeso = new object[PocetKarticekVeHre];
+            //ZalohaHraci = new string[PocetKarticekVeHre];
 
             //sprava hracu
             PocetHracu = 1;
@@ -42,6 +56,7 @@ namespace Pexeso
         /// Hra s volitelnou velikosti pole a poctu hracu
         /// </summary>
         /// <param name="pocetHracu">int</param>
+        /// <param name="seznamHracu">pole instanci Hrac</param>
         /// <param name="pocetKarticekVeHre">int. Musi odpovidat hodnotam ulozenym ve slovniku rozlozeni</param>
         public LogikaHry(int pocetKarticekVeHre, Hrac[] seznamHracu, int pocetHracu )
             :this()
@@ -50,7 +65,7 @@ namespace Pexeso
             this.seznamHracu = seznamHracu;
             PocetHracu = pocetHracu;
             AktualniHracNarade = 0; //muze se pridat losovani
-            VygenerujPoleNahodnePromichanychIndexuObrazkuNaKartickach(3 * PocetKarticekVeHre);
+            VygenerujPoleNahodnePromichanychIndexuObrazkuNaKartickach();
         }
 
         /// <summary>
@@ -71,7 +86,7 @@ namespace Pexeso
                     PocetHracu = intValue;
                     break;
             }
-            VygenerujPoleNahodnePromichanychIndexuObrazkuNaKartickach(3 * PocetKarticekVeHre); //vola se dvakrat
+            VygenerujPoleNahodnePromichanychIndexuObrazkuNaKartickach(); //vola se dvakrat
         }
 
         //FUNKCE GENERUJICI ROZLOZENI HRY-------------------------------------------------
@@ -80,7 +95,7 @@ namespace Pexeso
         /// Vytvori pole indentifikatoru karticek, kde se bude vzdy jeden identifikator opakovat dvakrat. Velikost pole zavisi od hodnoty PocetKarticekVeHre
         /// </summary>
         /// <returns>int[] PoleIndexuKarticek</returns>
-        void VygenerujPoleNahodnePromichanychIndexuObrazkuNaKartickach(int pocetMichaniKaret)
+        void VygenerujPoleNahodnePromichanychIndexuObrazkuNaKartickach()
         {
             int[] pulPole = new int[PocetKarticekVeHre / 2];
             for (int i = 0; i < pulPole.Length; i++)
@@ -88,7 +103,7 @@ namespace Pexeso
                 pulPole[i] = i;
             }
             PoleIndexuObrazkuNaKartickach = pulPole.Concat(pulPole).ToArray();
-            ZamichejKarticky(pocetMichaniKaret);
+            ZamichejKarticky(PocetKarticekVeHre*5);
         }
         /// <summary>
         /// Nahodne promicha hodnoty identifikatoru obrazku v poli PoleIndexuKarticek
@@ -111,7 +126,7 @@ namespace Pexeso
         /// <summary>
         /// Vrati pole povolenych (podporovanych) poctu karticek ve hre.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>pole celych cisel</returns>
         public int[] VratPolePovolenychPoctuKarticekVeHre()
         {
             return rozlozeni.Keys.ToArray();
@@ -139,24 +154,51 @@ namespace Pexeso
         {
             return indexOdkrytehoObrazku1 == indexOdkrytehoObrazku2;
         }
-
+        
         /// <summary>
-        /// Pricte danemu hraci zadany pocet bodu, obvykle 1.
+        /// Pricte danemu hraci na rade (par. AktualniHracNaRade) pocet bodu podle pravidel hry
         /// </summary>
-        /// <param name="hrac">instance daneho hrace tridy Hrac</param>
-        /// <param name="pricteneSkore">Hodnota poctu prictenych bodu. Pokud se pricita jen jeden bod neni treba zadavat</param>
-        public void AktualizujSkore(Hrac hrac, int pricteneSkore = 1)
+        /// <param name="druhHry">enum se seznamem her s ruznym zpusobem pocitani skore. Bez zadani je vybrana KlasickaHra</param>
+        /// <param name="pricti">volitelny bool parametr, ktery je true pokud hrac obdrzi body a false pokud se body maji odecist</param>
+        public void AktualizujSkore(DruhHry druhHry = DruhHry.KlasickaHra, bool pricti = true)
         {
-            hrac.PripisSkore(ziskaneSkore: pricteneSkore);
+            if (pricti) //pricte body za dvojici
+            {
+                switch (druhHry)
+                {
+                    case DruhHry.KlasickaHra: 
+                        seznamHracu[AktualniHracNarade].Skore++;
+                        break;
+                    case DruhHry.ZaporneBodyZaSpatnyTah: 
+                            seznamHracu[AktualniHracNarade].Skore += 2;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else //odecte body za pokus bez odkryti dvojici
+            {
+                switch (druhHry)
+                {
+                    case DruhHry.KlasickaHra: 
+                        break;
+                    case DruhHry.ZaporneBodyZaSpatnyTah: 
+                        seznamHracu[AktualniHracNarade].Skore -= 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
+            
         }
 
         /// <summary>
         /// Pricte danemu hraci pokus.
         /// </summary>
-        /// <param name="hrac">instance daneho hrace tridy Hrac</param>
-        public void PrictiPokus(Hrac hrac)
+        public void PrictiPokus()
         {
-            hrac.PripisPocetTahu();
+            seznamHracu[AktualniHracNarade].PocetTahu++;
         }
 
         /// <summary>
@@ -164,7 +206,8 @@ namespace Pexeso
         /// </summary>
         public void ZmenHraceNaRade()
         {
-            if (AktualniHracNarade++ == PocetHracu-1)
+            AktualniHracNarade++;
+            if (AktualniHracNarade == PocetHracu)
             {
                 AktualniHracNarade = 0;
             } 

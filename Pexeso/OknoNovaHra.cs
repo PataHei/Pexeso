@@ -141,6 +141,7 @@ namespace Pexeso
             this.comboBoxJmenoHrace1.Items.AddRange(new object[] {
             "přidat jméno"});
             this.comboBoxJmenoHrace1.Location = new System.Drawing.Point(126, 124);
+            this.comboBoxJmenoHrace1.MaxLength = 25;
             this.comboBoxJmenoHrace1.Name = "comboBoxJmenoHrace1";
             this.comboBoxJmenoHrace1.Size = new System.Drawing.Size(191, 28);
             this.comboBoxJmenoHrace1.TabIndex = 11;

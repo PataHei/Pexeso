@@ -10,5 +10,13 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Driver={Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)};dbq=C:\Users\Administrator\source\repos\czechitas\Cis\20211201\Pexeso\Pexeso\PravidlaPexeso.xlsx;defaultdir=C:\Users\Administrator\source\repos\czechitas\Cis\20211201\Pexeso\Pexeso;driverid=1046;fil=excel 12.0;filedsn=C:\Users\Administrator\source\repos\czechitas\Cis\20211201\Pexeso\Pexeso\PravidlaPexeso.xlsx.dsn;maxbuffersize=2048;maxscanrows=8;pagetimeout=5;readonly=1;safetransactions=0;threads=3;uid=admin;usercommitsync=Yes</Value>
     </Setting>
+    <Setting Name="DataPexesoConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\DataPexeso.mdf;Integrated Security=True;Connect Timeout=30&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\DataPexeso.mdf;Integrated Security=True;Connect Timeout=30</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

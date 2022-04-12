@@ -88,6 +88,16 @@ namespace Pexeso
             return ZalohaVlastnistiKarticek;
         }
 
+        private string[] VytvorZalohuHracu(Hrac[] hraci)
+        {
+            string[] zalohaHraci = new string[hraci.Length];
+            for (int i = 0; i < hraci.Length; i++)
+            {
+                zalohaHraci[i] = hraci[i].UlozInstanciDoXMLretezce();
+            }
+            return zalohaHraci;
+        }
+
         /// <summary>
         /// Metoda vyvolana kliknutim na stripMenu Nacti hru, ktera nacte xml soubor a zavola metody na nacteni parametru do instance pexeso tridy LogikaHry
         /// </summary>
@@ -107,7 +117,7 @@ namespace Pexeso
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void openFileDialogOtevriHru_FileOk(object sender, CancelEventArgs e)
+        private void OpenFileDialogOtevriHru_FileOk(object sender, CancelEventArgs e)
         {
             pexeso = (LogikaHry)pexeso.Deserializuj(openFileDialogOtevriHru.FileName);
             InicializujNoveOkno();
@@ -148,14 +158,15 @@ namespace Pexeso
         /// <param name="e"></param>
         private void UložHruToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //pexeso.seznamHracu[0].UlozInstanciDoXMLretezce();
+            
             //VytvorZalohuKaticek();
             string prefix = "hra";
             string nazevSouboru = prefix.VytvorNazev();
             //vytvori se v instanci pexeso tridy LogikaHry zaloha nastaveni obrazku v kartickach.
             pexeso.ZalohaVlastnistiKarticekSOknaPexeso = VytvorZalohuKaticek();
             //tvorba xml
-            bool xmlUlozeno;
-            pexeso.UlozInstanciDoXML(nazevSouboru, UlozisteZaloh, out xmlUlozeno);
+            pexeso.UlozInstanciDoXMLsouboru(nazevSouboru, UlozisteZaloh, out bool xmlUlozeno);
             //povrzeni uzivateli o provedenem ukladani xml
             if (xmlUlozeno)
             {

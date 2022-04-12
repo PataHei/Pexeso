@@ -13,19 +13,21 @@ namespace Pexeso
 {
     /// <summary>
     /// Trida rozsirujicich metod na serializaci a deserializaci parametru trid, ktere se ulozi do xml souboru.
+    /// Poznamka1: instance musi mit bezparametricky konstruktor
+    /// Poznamka2: vsechny parametry instance, ktere maji byt serializovany musi byt public jinak je neprecte
+    /// Poznamka3: metoda neumi zpracovat IEnumerable, protoze to neumi spracovat XmlSerializer
     /// </summary>
     public static class PraceSxml
     {
         /// <summary>
         /// Vytvori xml soubor s parametry zadane instance tridy
-        /// Poznamka: metoda neumi zpracovat IEnumerable, protoze to neumi spracovat XmlSerializer
         /// </summary>
         /// <param name="instanceObjektu">objekt urceny k serializaci</param>
         /// <param name="nazevSouboru">string ktery bude pouzit na vygenerovani nazvu xml souboru</param>
         /// <param name="adresa">cesta kde ma byt ulozeny soubor xml</param>
         /// <param name="ulozeno">bool hodnota true pokud problehlo ulozeni xml</param>
         /// <returns>string obsahujici xml</returns>
-        public static void UlozInstanciDoXML(this object instanceObjektu, string nazevSouboru, string adresa, out bool ulozeno) 
+        public static void UlozInstanciDoXMLsouboru(this object instanceObjektu, string nazevSouboru, string adresa, out bool ulozeno) 
         {
             ulozeno = false; //pokud nedojde k ulozeni vraci se false                
             string nazevAcesta = adresa + nazevSouboru; //vygeneruje cestu s nazvem ciloveho souboru
@@ -49,6 +51,34 @@ namespace Pexeso
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Vytvori xml textovy retezec s parametry zadane instance tridy
+        /// </summary>
+        /// <param name="instanceObjektu">objekt urceny k serializaci</param>
+        /// <returns>string obsahujici xml</returns>
+        public static string UlozInstanciDoXMLretezce(this object instanceObjektu)
+        {
+            string xmlInstance = "";
+            try
+            {
+                XmlSerializer serializerOfInstance = new XmlSerializer(instanceObjektu.GetType()); //alternativa, ktera typ promenne zjistuje fci GetType()
+
+                using (var sw = new StringWriter()) //StringWriter() metoda s knihovny system IO
+
+                {
+                    serializerOfInstance.Serialize(sw, instanceObjektu);
+                    xmlInstance = sw.ToString(); // Your XML
+                    MessageBox.Show(xmlInstance);
+                    return xmlInstance;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return xmlInstance;
         }
 
         /// <summary>
@@ -89,7 +119,6 @@ namespace Pexeso
         {
             return $"{prefix}{DateTime.Now:yyMMddHHmmss}.xml";
         }
-
 
     }
 }

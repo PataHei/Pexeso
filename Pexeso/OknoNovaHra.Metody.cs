@@ -16,8 +16,9 @@ namespace Pexeso
         //Prvky Okna Nova Hra
         Label[] labelsHraci;
         ComboBox[] comboBoxesJmenaHracu;
-        ComboBox aktivniComboxJmenoHrace;
-        int maxPocetHracuVeHre; //pri tvorbe konstruktoru umoznuje omezit kolik muze byt voleno poctu hracu
+        //public ComboBox aktivniComboxJmenoHrace;
+
+        //int maxPocetHracuVeHre; //pri tvorbe konstruktoru umoznuje omezit kolik muze byt voleno poctu hracu
         object[] herniPole; //pole hodnot velikosti herniho plochy (poctu karticek), ktere se zobrazi v comboBoxu comboBoxPocetKarticek
 
         //Data z databaze her a hracu
@@ -26,6 +27,7 @@ namespace Pexeso
         //Parametry k hracum => predavaj se do instance LogikaHry
         public int pocetHracu; //zadany pocet hracu uzivatelem
         public Hrac[] zadaniHraciVeHre; //seznam navolenych hracu
+        
 
         //Parametry k rozlozeni hry  => predavaj se do instance LogikaHry
         public int PocetKarticekVeHre;
@@ -38,14 +40,14 @@ namespace Pexeso
         {
             //Data z databaze her a hracu
             jmenaHracu = new object[] { "Karel", "Iveta", "Zdenek", "Lubor"};
-            this.maxPocetHracuVeHre = maxPocetHracuVeHre;
+            //this.maxPocetHracuVeHre = maxPocetHracuVeHre;
             this.herniPole = herniPole;
 
             //Statické prvky Okna Nova Hra
             InitializeComponent();
 
             //Comboboxy na zadani prezdivky hracu se predvitvori a pak se zobrazuji podle potreby
-            aktivniComboxJmenoHrace = comboBoxJmenoHrace1;
+            //aktivniComboxJmenoHrace = comboBoxJmenoHrace1;
             labelsHraci = VytvorLabelyHraci(maxPocetHracuVeHre);
             comboBoxJmenoHrace1.Items.AddRange(jmenaHracu);
             comboBoxesJmenaHracu = VytvorComboBoxyJmenaHracu(maxPocetHracuVeHre);
@@ -62,7 +64,7 @@ namespace Pexeso
             pocetHracu = 1; 
             zadaniHraciVeHre = new Hrac[maxPocetHracuVeHre];
             zadaniHraciVeHre[0] = new Hrac("hrac 1");
-            comboBoxesJmenaHracu[0].SelectedItem = zadaniHraciVeHre[0].VratJmeno();
+            comboBoxesJmenaHracu[0].SelectedItem = zadaniHraciVeHre[0].Prezdivka;
             
         }
 
@@ -89,15 +91,15 @@ namespace Pexeso
             int hracCislo = (int)numericUpDownPocetHracu.Value;
            if(hracCislo > pocetHracu)
             {
-                ZobrazDalsiControlsHrac();
+                ZobrazDalsiControlHrac();
             }
             else 
             {
-                SmazPosledniControls();
+                SkryjPodledniControlHracAodeberhrace();
             }
         }
 
-        private void SmazPosledniControls()
+        private void SkryjPodledniControlHracAodeberhrace()
         {
             pocetHracu--;
             zadaniHraciVeHre[pocetHracu] = null; 
@@ -105,7 +107,7 @@ namespace Pexeso
             comboBoxesJmenaHracu[pocetHracu].Visible = false;
         }
 
-        private void ZobrazDalsiControlsHrac()
+        private void ZobrazDalsiControlHrac()
         {
             pocetHracu++;
             zadaniHraciVeHre[pocetHracu - 1] = new Hrac($"hrac {pocetHracu}");
@@ -133,7 +135,7 @@ namespace Pexeso
         {
             Label label = new Label(); //prevezme vlastnosti labelhrac1 a nasledne se upravy ty parametry, ktere jsou individualni jako umisteni v okne, nazev, text, tab
             label.Name = $"labelHrac{i}";
-            label.Text = $"hráč{i + 1}:";
+            label.Text = $"hráč {i + 1}:";
             label.Location = new System.Drawing.Point(labelhrac1.Location.X, labelhrac1.Location.Y + i * 30);
 
             label.Size = labelhrac1.Size;
@@ -170,13 +172,14 @@ namespace Pexeso
             comboBox.Font = comboBoxJmenoHrace1.Font;
             comboBox.FormattingEnabled = comboBoxJmenoHrace1.FormattingEnabled;
             comboBox.Items.AddRange(jmenaHracu);
-            comboBox.Items.Add("přidat jméno");
+            //comboBox.Items.Add("přidat jméno");
             comboBox.Location = new System.Drawing.Point(comboBoxJmenoHrace1.Location.X, comboBoxJmenoHrace1.Location.Y + 30*i);
             comboBox.Name = $"comboBoxJmenoHrace{i}";
             comboBox.Size = comboBoxJmenoHrace1.Size;
             comboBox.TabIndex = comboBoxJmenoHrace1.TabIndex + i;
             comboBox.Tag = i;
             comboBox.Visible = false;
+            comboBox.MaxLength = 25;
 
             //prida combobox do formulare
             this.Controls.Add(comboBox);
@@ -194,9 +197,9 @@ namespace Pexeso
         private void comboBoxJmenoHrace_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
-            aktivniComboxJmenoHrace = comboBox;
+            //aktivniComboxJmenoHrace = comboBox;
             string novaPresdivka = comboBox.SelectedItem.ToString();
-            zadaniHraciVeHre[(int)comboBox.Tag].PrejmenujHrace(novaPresdivka);
+            zadaniHraciVeHre[(int)comboBox.Tag].Prezdivka = novaPresdivka;
 
         }
         /// <summary>
@@ -208,7 +211,7 @@ namespace Pexeso
         {
             ComboBox comboBox = sender as ComboBox;
             string novaPresdivka = comboBox.Text;
-            zadaniHraciVeHre[(int)comboBox.Tag].PrejmenujHrace(novaPresdivka);
+            zadaniHraciVeHre[(int)comboBox.Tag].Prezdivka = novaPresdivka;
             //Napsat validaci jmeno jestli uz neexistuje
         }
 
