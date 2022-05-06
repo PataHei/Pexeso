@@ -22,6 +22,7 @@ namespace Pexeso
         }
 
         public int PocetKarticekVeHre;
+        public int AktualniPocetKarticekVeHre; //pocita aktualni pocet karticek, ktere nebyli odstraneny ze hry. Na zacatku hry vzdy rovno hodnote parametru PocetKarticekVeHre.
         public int[] PoleIndexuObrazkuNaKartickach; //uchovava indexi odkazujici na nacitane obrazky
         
         //vlastnosti k zalohovani hry prevzatych s tridy s rozhranim pro uzivatele
@@ -32,6 +33,8 @@ namespace Pexeso
         public int PocetHracu;
         public Hrac[] seznamHracu; //pole instanci hrac, ktery uchovava informaci o presdivce, skore a poctu tahu
         public int AktualniHracNarade;
+        //databaze her
+        public int IdHry; 
 
 
         //KONSTRUKTORY--------------------------------------------------------
@@ -42,6 +45,7 @@ namespace Pexeso
         public LogikaHry()
         {
             PocetKarticekVeHre = 16;
+            AktualniPocetKarticekVeHre = PocetKarticekVeHre;
             VygenerujPoleNahodnePromichanychIndexuObrazkuNaKartickach();
             ZalohaVlastnistiKarticekSOknaPexeso = new object[PocetKarticekVeHre];
             //ZalohaHraci = new string[PocetKarticekVeHre];
@@ -50,6 +54,9 @@ namespace Pexeso
             PocetHracu = 1;
             seznamHracu = new Hrac[] { new Hrac("hrac", 0, 0) };
             AktualniHracNarade = 0;
+            //databaze her
+            IdHry = 0;
+
         }
 
         /// <summary>
@@ -62,10 +69,14 @@ namespace Pexeso
             :this()
         {
             PocetKarticekVeHre = pocetKarticekVeHre;
+            AktualniPocetKarticekVeHre = pocetKarticekVeHre;
             this.seznamHracu = seznamHracu;
             PocetHracu = pocetHracu;
             AktualniHracNarade = 0; //muze se pridat losovani
             VygenerujPoleNahodnePromichanychIndexuObrazkuNaKartickach();
+            //databaze her
+            IdHry = 0;
+
         }
 
         /// <summary>
@@ -145,14 +156,19 @@ namespace Pexeso
 
         //VYHODNOCENI HRY
         /// <summary>
-        /// Porovna zda identifikatory dvou obrazku (Tag ci index) jsou stejne.
+        /// Porovna zda identifikatory dvou obrazku (Tag ci index) jsou stejne. 
         /// </summary>
         /// <param name="indexOdkrytehoObrazku1">string jednoznacne identifikujici obrazek, napr. Tag ci index pole prevedeny na string</param>
         /// <param name="indexOdkrytehoObrazku2">string jednoznacne identifikujici obrazek, napr. Tag ci index pole prevedeny na string</param>
-        /// <returns>True pokud identifikatory jsou stejne.</returns>
+        /// <returns>True pokud identifikatory jsou stejne. Zaroven se ponizi parametr AktualniPocetKarticekVeHre o 2</returns>
         public bool JsouDveKartickyStejne(string indexOdkrytehoObrazku1, string indexOdkrytehoObrazku2)
         {
-            return indexOdkrytehoObrazku1 == indexOdkrytehoObrazku2;
+            if (indexOdkrytehoObrazku1 == indexOdkrytehoObrazku2)
+            {
+                AktualniPocetKarticekVeHre -= 2; //odebere dvojici z aktualniho poctu karticek
+                return true;
+            }
+            return false;
         }
         
         /// <summary>
@@ -175,6 +191,7 @@ namespace Pexeso
                     default:
                         break;
                 }
+                
             }
             else //odecte body za pokus bez odkryti dvojici
             {
@@ -212,6 +229,21 @@ namespace Pexeso
                 AktualniHracNarade = 0;
             } 
 
+        }
+
+        /// <summary>
+        /// Overi zda nastala podminka pro konec hry (zadne karticky ve hre) a nastavi hodnotu parametru KonecHry na true pokud je podminka splnena.
+        /// </summary>
+        /// <param name="pocetNeodkrytychKaret">aktualni pocet karticek ve hre</param>
+        public bool JeKonecHry()
+        {
+            if (AktualniPocetKarticekVeHre == 0)
+            {
+                return true;
+            }
+
+            return false;
+                
         }
     }
 }

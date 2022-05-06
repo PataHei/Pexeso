@@ -81,7 +81,7 @@ namespace Pexeso
             0,
             0,
             0});
-            this.numericUpDownPocetHracu.ValueChanged += new System.EventHandler(this.numericUpDownPocetHracu_ValueChanged);
+            this.numericUpDownPocetHracu.ValueChanged += new System.EventHandler(this.NumericUpDownPocetHracu_ValueChanged);
             // 
             // label1
             // 
@@ -122,7 +122,7 @@ namespace Pexeso
             this.comboBoxPocetKarticek.Name = "comboBoxPocetKarticek";
             this.comboBoxPocetKarticek.Size = new System.Drawing.Size(56, 24);
             this.comboBoxPocetKarticek.TabIndex = 9;
-            this.comboBoxPocetKarticek.SelectedIndexChanged += new System.EventHandler(this.comboBoxPocetKarticek_SelectedIndexChanged);
+            this.comboBoxPocetKarticek.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPocetKarticek_SelectedIndexChanged);
             // 
             // labelhrac1
             // 
@@ -146,8 +146,8 @@ namespace Pexeso
             this.comboBoxJmenoHrace1.Size = new System.Drawing.Size(191, 28);
             this.comboBoxJmenoHrace1.TabIndex = 11;
             this.comboBoxJmenoHrace1.Tag = 0;
-            this.comboBoxJmenoHrace1.SelectedValueChanged += new System.EventHandler(this.comboBoxJmenoHrace_SelectedValueChanged);
-            this.comboBoxJmenoHrace1.TextChanged += new System.EventHandler(this.comboBoxJmenoHrace_TextChanged);
+            this.comboBoxJmenoHrace1.SelectedValueChanged += new System.EventHandler(this.ComboBoxJmenoHrace_SelectedValueChanged);
+            this.comboBoxJmenoHrace1.TextChanged += new System.EventHandler(this.ComboBoxJmenoHrace_TextChanged);
             // 
             // textBoxNoveJmeno
             // 

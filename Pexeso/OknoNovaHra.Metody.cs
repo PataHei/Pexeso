@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Pexeso
 {
@@ -24,14 +22,13 @@ namespace Pexeso
         //Data z databaze her a hracu
         object[] jmenaHracu;
 
+        //PARAMETRY SOUVISEJICI SE ZALOZENIM NOVE HRY - vytvoreni nove instance LogikaHry
         //Parametry k hracum => predavaj se do instance LogikaHry
-        public int pocetHracu; //zadany pocet hracu uzivatelem
+        public int pocetHracu; //zadany pocet hracu uzivatelem pri zakladani nove hry
         public Hrac[] zadaniHraciVeHre; //seznam navolenych hracu
         
-
         //Parametry k rozlozeni hry  => predavaj se do instance LogikaHry
-        public int PocetKarticekVeHre;
-       
+        public int PocetKarticekVeHre; //zadany pocet karticek uzivatelem pri zakladani nove hry
 
         /// <summary>
         /// Konstruktor okna NovaHra
@@ -39,7 +36,13 @@ namespace Pexeso
         public OknoNovaHra(object[] herniPole, int maxPocetHracuVeHre = 6)
         {
             //Data z databaze her a hracu
-            jmenaHracu = new object[] { "Karel", "Iveta", "Zdenek", "Lubor"};
+            /// <summary>
+            /// Přístup k informacím o hračich, hrach a jejich statistikám v databazi SQL
+            /// </summary>
+            PraceSDatabazi dataHry = new PraceSDatabazi();
+            jmenaHracu = dataHry.VratSeznamHracu();
+           
+            
             //this.maxPocetHracuVeHre = maxPocetHracuVeHre;
             this.herniPole = herniPole;
 
@@ -52,19 +55,17 @@ namespace Pexeso
             comboBoxJmenoHrace1.Items.AddRange(jmenaHracu);
             comboBoxesJmenaHracu = VytvorComboBoxyJmenaHracu(maxPocetHracuVeHre);
             numericUpDownPocetHracu.Maximum = maxPocetHracuVeHre; //nastavi limit poctu hracu na prvek UpDown
-            //Nove jmeno
-            textBoxNoveJmeno.SelectionStart = 0;
-            textBoxNoveJmeno.SelectionLength = textBoxNoveJmeno.Text.Length;
-
-            naplnComboBoxHerniPole();
-            comboBoxPocetKarticek.SelectedIndex = 0; //na zacaktu je vzdy vybrana prvni polozka
+            
+            //ComboBox pro vyber poctu karticek ve hre
+            NaplnComboBoxHerniPole();
+            comboBoxPocetKarticek.SelectedItem = 16; //na zacaktu je vybrana polozka odpovidajici nastaveni instance zakladni hry
 
             //Parametry k hracum => predavaj se do instance LogikaHry
             //vzdy ve hre je aspon jeden hrac
             pocetHracu = 1; 
             zadaniHraciVeHre = new Hrac[maxPocetHracuVeHre];
             zadaniHraciVeHre[0] = new Hrac("hrac 1");
-            comboBoxesJmenaHracu[0].SelectedItem = zadaniHraciVeHre[0].Prezdivka;
+            comboBoxesJmenaHracu[0].SelectedItem = zadaniHraciVeHre[0].Prezdivka; //predvybrana je polozka s jmenem aktualniho hrace
             
         }
 
@@ -73,19 +74,28 @@ namespace Pexeso
         /// <summary>
         /// metoda pridava do ComboBoxu Pocet karticek polozky povolenych velikosti hraciho pole ulozenych ve slovniku rozlozeni v tride LogikaHry.
         /// </summary>
-        private void naplnComboBoxHerniPole()
+        private void NaplnComboBoxHerniPole()
         {
             comboBoxPocetKarticek.Items.AddRange(herniPole);
         }
-
-        private void comboBoxPocetKarticek_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Priradi volbu uzivatele v comboBoxu s Pocetem karticek do parametru PocetKarticekVeHre, pokud se zmeni vybrana hodnota
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ComboBoxPocetKarticek_SelectedIndexChanged(object sender, EventArgs e)
         {
             PocetKarticekVeHre = (int)comboBoxPocetKarticek.SelectedItem;
         }
 
        
         //POCET HRACU A PRIDAVANI LABELU HRAC A COMBOBOXU
-        private void numericUpDownPocetHracu_ValueChanged(object sender, EventArgs e)
+       /// <summary>
+       /// Pokud se zmeni hodnota controloru NumericUpDown (udalost) prida se nebo odebere ComboBox pro vyber prezdivky a prislusny label, tak aby kazdy hrac si mohl zadat prezdivku ve hre
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
+        private void NumericUpDownPocetHracu_ValueChanged(object sender, EventArgs e)
         {
             //oznaceni hrace cislem (1 az n), nasledne je treba odecist 1 pro index v poli
             int hracCislo = (int)numericUpDownPocetHracu.Value;
@@ -98,7 +108,9 @@ namespace Pexeso
                 SkryjPodledniControlHracAodeberhrace();
             }
         }
-
+        /// <summary>
+        /// Skryje labelHrac a prislusny comboBoxJmenoHrace, snizi hodnotu parametru pocetHracu o jedna a vymaze prezdivku hrace s pole zadaniHraciVeHre.
+        /// </summary>
         private void SkryjPodledniControlHracAodeberhrace()
         {
             pocetHracu--;
@@ -179,22 +191,22 @@ namespace Pexeso
             comboBox.TabIndex = comboBoxJmenoHrace1.TabIndex + i;
             comboBox.Tag = i;
             comboBox.Visible = false;
-            comboBox.MaxLength = 25;
+            comboBox.MaxLength = 30; //odpovida nastaveni v databazi Hraci
 
             //prida combobox do formulare
             this.Controls.Add(comboBox);
             //prida do seznamu labelu pro dalsi hromadne upravy    
             comboBoxesJmenaHracu[i] = comboBox;
             //prirazene udalosti
-            comboBox.SelectedValueChanged += new System.EventHandler(comboBoxJmenoHrace_SelectedValueChanged);
-            comboBox.TextChanged += new System.EventHandler(this.comboBoxJmenoHrace_TextChanged);
+            comboBox.SelectedValueChanged += new System.EventHandler(ComboBoxJmenoHrace_SelectedValueChanged);
+            comboBox.TextChanged += new System.EventHandler(this.ComboBoxJmenoHrace_TextChanged);
         }
         /// <summary>
         /// Po vybrani jmena hrace se jmeno (prezdivka) zapise do instance Hrac. Pokud uzivatel nevybere zadne jmeno, zustavne v instaci Hrace automaticky vygenerovana prezdivka. Pokud vybere "nove jmeno" bude moci zadat jine jmeno, ktere neni v seznamu.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBoxJmenoHrace_SelectedValueChanged(object sender, EventArgs e)
+        private void ComboBoxJmenoHrace_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
             //aktivniComboxJmenoHrace = comboBox;
@@ -207,14 +219,13 @@ namespace Pexeso
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBoxJmenoHrace_TextChanged(object sender, EventArgs e)
+        private void ComboBoxJmenoHrace_TextChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
             string novaPresdivka = comboBox.Text;
             zadaniHraciVeHre[(int)comboBox.Tag].Prezdivka = novaPresdivka;
-            //Napsat validaci jmeno jestli uz neexistuje
+            //Validaci jmeno jestli uz neexistuje resi databaze
         }
 
-        //pridat metodu, ktera pri zavirani okna ulozi nove prezdivky do nejake databaze, co jeste neexistuje
     }
 }

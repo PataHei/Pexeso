@@ -30,13 +30,41 @@ namespace Pexeso
             if (oknoNovaHra.DialogResult == DialogResult.OK)
             {
                 //pokud je dialog Nova hra uzavren potvrzenim OK, pak se prenastavi parametry inst. pexeso a reinicializuje se OknoPexeso
-                pexeso = new LogikaHry(oknoNovaHra.PocetKarticekVeHre, oknoNovaHra.zadaniHraciVeHre, oknoNovaHra.pocetHracu); 
+                pexeso = new LogikaHry(oknoNovaHra.PocetKarticekVeHre, oknoNovaHra.zadaniHraciVeHre, oknoNovaHra.pocetHracu);
                 MessageBox.Show($"Pocet hracu bude {pexeso.PocetHracu} a karet ve hre bude {pexeso.PocetKarticekVeHre}.");
                 InicializujNoveOkno();
-                
-                //otazka co se stane s instanci oknoNovaHra??
+                //prida do databaze informace o hre, hracich a idHry a idHracu do jejich instanci
+                PridejDataDoDataBaze();
+
             }
-            
+
+        }
+
+        /// <summary>
+        /// metoda zajisti predani informaci o hre a hracich do SQL databaze pomoci instance objektu tridy PraceSDatabazi
+        /// </summary>
+        private void PridejDataDoDataBaze()
+        {
+            //zaroven se zapisou informace o hre a hracich do databaze
+            PraceSDatabazi dataHry = new PraceSDatabazi();
+
+            //prida prezdivky hracu do databaze, pokud nejsou jiz v databazi. 
+            //nastavi IdHrace s databaze do instanci Hrace
+            foreach (var item in pexeso.seznamHracu)
+            {
+                if (item != null)
+                {
+                    dataHry.PridejHraceDoTabulkyHraci(item.Prezdivka);
+                    item.IdHrac = dataHry.ZjistiZdatabazeIdHrace(item.Prezdivka);
+                }
+            }
+
+            //prida hru do databaze
+            dataHry.PridejHruDoTabulkyHry(pexeso.PocetHracu, pexeso.PocetKarticekVeHre);
+
+            //nastavi IdHry s databaze do instance LogikaHry
+            pexeso.IdHry = dataHry.ZjistiZdatabazeIdHry();
+ 
         }
 
         /// <summary>

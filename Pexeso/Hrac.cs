@@ -11,8 +11,10 @@ namespace Pexeso
     /// </summary>
     public class Hrac
     {
-        public string Prezdivka;
-        //int prezdivkaMaxPocetZnaku;
+        public string Prezdivka; 
+        public int IdHrac;
+
+        //public int IdHra;
         public int Skore;
         public int PocetTahu;
 

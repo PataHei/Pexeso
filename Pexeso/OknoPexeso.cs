@@ -1,25 +1,17 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace Pexeso
 {
     /// <summary>
     /// Parcialni trida se stara o hraci pole v OknePexeso
-    /// TODO velikost okna podle poctu karet - hraciho pole, pozicovani labelu skore a pokusy
+    /// TODO: pozicovani labelu skore a pokusy
     /// </summary>
     public partial class OknoPexeso : Form
     {
         /// <summary>
-        /// Pole se všemi možnými obrázky pro pexeso.
+        /// Pole s obrázky pro karticky pexesa.
         /// </summary>
         readonly Bitmap[] obrazky = new Bitmap[]
         {
@@ -54,11 +46,11 @@ namespace Pexeso
             Properties.Resources._029_wizard,
             Properties.Resources._030_wooden_mug
         };
-        
+
         PictureBox odkrytaPrvniKarticka; //Aktualne odkryte karticky, ktere se nasledne vyhodnoti jejich stejnost
         PictureBox[] Karticky;
-        //object[] VyrazeneKarticky; //udrzuje informaci o kratickach, ktere jiz jsou mimo hru, bude uchovavat hodnoty PictureBox.Tag
-        //cesta kde se ukladaji zalohy
+        
+        //cesta, kde se ukladaji zalohy hry
         public string UlozisteZaloh;
         
         //vytvori instanci hry pexeso s rozlozenim 16 karet pro jednoho hrace
@@ -85,6 +77,9 @@ namespace Pexeso
             Karticky = new PictureBox[pexeso.PocetKarticekVeHre]; //pamatuje si vsechny karticky PictureBoxy ve hre
             //VyrazeneKarticky = new object[pexeso.PocetKarticekVeHre];//uklada index k obrazku v poli obrazky[], ktery byl puvodne v Picture.Tag. Informace se ulozi pod stejny index jako ma karticka v poli Karticky.
             RozdejKarty();
+            labelKonecHry.Visible = false;
+            //nastaveni sirky menuStrip1 podle sirky okna
+            this.menuStrip1.MinimumSize = new Size(this.Size.Width, 28); //prapodivne chovani, kdy je potreba sirku striptu nastavovat pres MinimumSize aby se pak podle neho aktualizovalo Size
             // zobrazeni hernich vysledku a dalsi info v picture boxu
             ZobrazSkoreVLabelu();
             ZobrazPocetPokusuVLabelu();
@@ -100,7 +95,7 @@ namespace Pexeso
         {
 
         }
-
+       
         /// <summary>
         /// Metoda vytvori pictureBox predstavujici herni karticku.
         /// </summary>
@@ -201,17 +196,18 @@ namespace Pexeso
         /// Metoda vyvolana udalosti clic na pictureBox s obrazky Karticek zobrazi obrazek a vyhodnoti provedeny tah.
         /// </summary>
         /// <param name="sender">PictureBox</param>
-        /// <param name="e">Clic</param>
+        /// <param name="e">Click</param>
         private void PictureBox_Click(object sender, EventArgs e)
         {
             PictureBox pictureBox = sender as PictureBox;
             UkazSkrytyObrazek(pictureBox);
             VyhodnotTah(pictureBox);
         }
+
         /// <summary>
         /// Metoda hlida kolik je odkrytych karticek, porovnava odkryte dvojice a podle vysledku karticky zakryva nebo deaktivuje
         /// </summary>
-        /// <param name="pictureBox"></param>
+        /// <param name="pictureBox"> obrazek karticky </param>
         private void VyhodnotTah(PictureBox pictureBox)
         {
             switch (odkrytaPrvniKarticka)
@@ -229,9 +225,31 @@ namespace Pexeso
                     bool jeZiskDvojice = pexeso.JsouDveKartickyStejne(odkrytaPrvniKarticka.Tag.ToString(), pictureBox.Tag.ToString());
                     AktualizujSkoreVOkne(jeZiskDvojice);
                     AktualizujZobrazeniKarticekPodleVysledkuTahu(pictureBox, jeZiskDvojice);
+                    ZakonciHruPokudNastalKonec();
                     break;
             }
 
+        }
+        /// <summary>
+        /// Informuje hrace pokud nastal konec hry. Vysledek hry ulozi do databaze.
+        /// </summary>
+        private void ZakonciHruPokudNastalKonec()
+        {
+            if (pexeso.JeKonecHry())
+            {
+                labelKonecHry.Visible = true;
+                PraceSDatabazi ulozHruDoDatabaze = new PraceSDatabazi();
+                for (int i = 0; i < pexeso.seznamHracu.Length ; i++)
+                {
+                    if (pexeso.seznamHracu[i] != null)
+                    {
+                        // hodnotama ve tvaru: IdHry, IdHrac, Skore, PocetTahu
+                        ulozHruDoDatabaze.PridejVysledekHry(pexeso.IdHry, pexeso.seznamHracu[i].IdHrac, pexeso.seznamHracu[i].Skore, pexeso.seznamHracu[i].PocetTahu);
+                    }
+                    
+                }
+                
+            }
         }
 
         /// <summary>
@@ -275,12 +293,11 @@ namespace Pexeso
 
 
         /// <summary>
-        /// Zaeviduje odebranou karticku ze hry do VyrazenychKarticek a nastavi jeji tag na null
+        /// Smaze hodnotu parametru Tag pictureBoxu dane karticky a tim ji znepristupni
         /// </summary>
         /// <param name="pictureBox"></param>
         private void OdstranKartickuZeHry(PictureBox pictureBox)
         {
-            //VyrazeneKarticky[int.Parse(pictureBox.Name.Substring("PictureBox".Length))] = pictureBox.Tag;
             pictureBox.Tag = null;
            
         }
@@ -312,6 +329,7 @@ namespace Pexeso
                 {
                     poleKarticek[i].Enabled = !poleKarticek[i].Enabled;
                 } 
+
             }
         }
 
@@ -397,5 +415,6 @@ namespace Pexeso
             pexeso.PrictiPokus();
             ZobrazPocetPokusuVLabelu();
         }
+
     }
 }
