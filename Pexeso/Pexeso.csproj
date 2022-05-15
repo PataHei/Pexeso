@@ -75,6 +75,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataPexesoDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="OknoKonecHry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OknoKonecHry.Designer.cs">
+      <DependentUpon>OknoKonecHry.cs</DependentUpon>
+    </Compile>
     <Compile Include="OknoNovaHra.Metody.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Napoveda.resx">
       <DependentUpon>Napoveda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OknoKonecHry.resx">
+      <DependentUpon>OknoKonecHry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OknoNovaHra.resx">
       <DependentUpon>OknoNovaHra.cs</DependentUpon>

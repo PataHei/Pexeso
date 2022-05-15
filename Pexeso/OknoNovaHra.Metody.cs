@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Pexeso
@@ -26,7 +28,8 @@ namespace Pexeso
         //Parametry k hracum => predavaj se do instance LogikaHry
         public int pocetHracu; //zadany pocet hracu uzivatelem pri zakladani nove hry
         public Hrac[] zadaniHraciVeHre; //seznam navolenych hracu
-        
+        string[] seznamZvolenychPrezdivek;
+
         //Parametry k rozlozeni hry  => predavaj se do instance LogikaHry
         public int PocetKarticekVeHre; //zadany pocet karticek uzivatelem pri zakladani nove hry
 
@@ -65,8 +68,11 @@ namespace Pexeso
             pocetHracu = 1; 
             zadaniHraciVeHre = new Hrac[maxPocetHracuVeHre];
             zadaniHraciVeHre[0] = new Hrac("hrac 1");
+            seznamZvolenychPrezdivek = new string[4];
             comboBoxesJmenaHracu[0].SelectedItem = zadaniHraciVeHre[0].Prezdivka; //predvybrana je polozka s jmenem aktualniho hrace
-            
+
+            //tlacitko pro vytvoreni hry je na zacatku nedostupne
+            buttonVytvor.Enabled = false;
         }
 
         //VOLBA ROZLOZENI HRY
@@ -98,7 +104,7 @@ namespace Pexeso
         private void NumericUpDownPocetHracu_ValueChanged(object sender, EventArgs e)
         {
             //oznaceni hrace cislem (1 az n), nasledne je treba odecist 1 pro index v poli
-            int hracCislo = (int)numericUpDownPocetHracu.Value;
+           int hracCislo = (int)numericUpDownPocetHracu.Value;
            if(hracCislo > pocetHracu)
             {
                 ZobrazDalsiControlHrac();
@@ -114,9 +120,12 @@ namespace Pexeso
         private void SkryjPodledniControlHracAodeberhrace()
         {
             pocetHracu--;
-            zadaniHraciVeHre[pocetHracu] = null; 
+            zadaniHraciVeHre[pocetHracu] = null;
+            seznamZvolenychPrezdivek[pocetHracu] = null;
             labelsHraci[pocetHracu].Visible = false;
             comboBoxesJmenaHracu[pocetHracu].Visible = false;
+            comboBoxesJmenaHracu[pocetHracu].SelectedItem = null;
+            PovolOKTlacitkoPokudJsouVsechnaJmenoHracuUnikatni();
         }
 
         private void ZobrazDalsiControlHrac()
@@ -125,6 +134,7 @@ namespace Pexeso
             zadaniHraciVeHre[pocetHracu - 1] = new Hrac($"hrac {pocetHracu}");
             labelsHraci[pocetHracu - 1].Visible = true;
             comboBoxesJmenaHracu[pocetHracu - 1].Visible = true;
+            buttonVytvor.Enabled = false;
         }
 
         //POPISKY HRACI
@@ -210,10 +220,23 @@ namespace Pexeso
         {
             ComboBox comboBox = sender as ComboBox;
             //aktivniComboxJmenoHrace = comboBox;
-            string novaPresdivka = comboBox.SelectedItem.ToString();
-            zadaniHraciVeHre[(int)comboBox.Tag].Prezdivka = novaPresdivka;
+            try
+            {
+                string novaPrezdivka = comboBox.SelectedItem.ToString();
+                zadaniHraciVeHre[(int)comboBox.Tag].Prezdivka = novaPrezdivka;
+                seznamZvolenychPrezdivek[(int)comboBox.Tag] = novaPrezdivka;
+                PovolOKTlacitkoPokudJsouVsechnaJmenoHracuUnikatni();
+            }
+            catch (NullReferenceException)
+            {
 
+                return;
+            }
+            
         }
+
+        
+
         /// <summary>
         /// 
         /// </summary>
@@ -222,9 +245,37 @@ namespace Pexeso
         private void ComboBoxJmenoHrace_TextChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
-            string novaPresdivka = comboBox.Text;
-            zadaniHraciVeHre[(int)comboBox.Tag].Prezdivka = novaPresdivka;
-            //Validaci jmeno jestli uz neexistuje resi databaze
+            string novaPrezdivka = comboBox.Text;
+            try
+            {
+                zadaniHraciVeHre[(int)comboBox.Tag].Prezdivka = novaPrezdivka;
+                seznamZvolenychPrezdivek[(int)comboBox.Tag] = novaPrezdivka;
+                PovolOKTlacitkoPokudJsouVsechnaJmenoHracuUnikatni();
+            }
+            catch (NullReferenceException)
+            {
+                return; //kdyz se to nepovede tak nic, jede se dal
+            }
+
+
+        }
+
+        /// <summary>
+        /// Skontroluje zda neni mezi hraci duplicita ve jmenu/prezdivce a pokud neni povoli se tlacitko pro vytvoreni nove hry
+        /// </summary>
+        public void PovolOKTlacitkoPokudJsouVsechnaJmenoHracuUnikatni()
+        {
+            IEnumerable<string> seznamPrezdivekBezNull = seznamZvolenychPrezdivek.Where(jmeno => jmeno != null);
+            int pocetUnikatnichJmen = seznamPrezdivekBezNull.Distinct().Count();
+            int pocetJmen = seznamPrezdivekBezNull.Count();
+            if (pocetJmen == pocetUnikatnichJmen && pocetHracu == pocetJmen)
+            {
+                buttonVytvor.Enabled = true;
+            }
+            else
+            {
+                buttonVytvor.Enabled = false;
+            }
         }
 
     }

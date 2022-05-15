@@ -52,7 +52,7 @@ namespace Pexeso
 
             //sprava hracu
             PocetHracu = 1;
-            seznamHracu = new Hrac[] { new Hrac("hrac", 0, 0) };
+            seznamHracu = new Hrac[] { new Hrac("Hráč", 0, 0) };
             AktualniHracNarade = 0;
             //databaze her
             IdHry = 0;

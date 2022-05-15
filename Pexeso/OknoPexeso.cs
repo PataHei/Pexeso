@@ -61,6 +61,7 @@ namespace Pexeso
         {
             InitializeComponent();
             InitializujHru();
+            
         }
 
         /// <summary>
@@ -88,6 +89,12 @@ namespace Pexeso
             //prace s xml soubory - ukladani hry
             UlozisteZaloh = Application.StartupPath + "\\zalohy\\"; //pouziva se i dale na nastavweni ukladani her
             openFileDialogOtevriHru.InitialDirectory = UlozisteZaloh; // nastavi vychozi adresar se zalohama do dialugu otevri soubor
+            //prace s sql
+            //prida do databaze informace o hre, hracich a idHry a idHracu do jejich instanci
+            PridejDataDoDataBaze();
+
+            OknoKonecHry konce = new OknoKonecHry(pexeso);
+            konce.Show();
 
         }
 

@@ -61,7 +61,7 @@
             // 
             this.labelScoreValue.AutoSize = true;
             this.labelScoreValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelScoreValue.Location = new System.Drawing.Point(418, 76);
+            this.labelScoreValue.Location = new System.Drawing.Point(190, 94);
             this.labelScoreValue.Name = "labelScoreValue";
             this.labelScoreValue.Size = new System.Drawing.Size(24, 25);
             this.labelScoreValue.TabIndex = 7;
@@ -69,11 +69,10 @@
             // 
             // labelPocetBodu
             // 
-            this.labelPocetBodu.AutoSize = true;
             this.labelPocetBodu.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPocetBodu.Location = new System.Drawing.Point(294, 78);
+            this.labelPocetBodu.Location = new System.Drawing.Point(64, 96);
             this.labelPocetBodu.Name = "labelPocetBodu";
-            this.labelPocetBodu.Size = new System.Drawing.Size(109, 20);
+            this.labelPocetBodu.Size = new System.Drawing.Size(128, 20);
             this.labelPocetBodu.TabIndex = 19;
             this.labelPocetBodu.Text = "Počet bodů:";
             // 
@@ -221,7 +220,7 @@
             // 
             this.PocetPokusuPopisek.AutoSize = true;
             this.PocetPokusuPopisek.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PocetPokusuPopisek.Location = new System.Drawing.Point(507, 78);
+            this.PocetPokusuPopisek.Location = new System.Drawing.Point(243, 96);
             this.PocetPokusuPopisek.Name = "PocetPokusuPopisek";
             this.PocetPokusuPopisek.Size = new System.Drawing.Size(128, 20);
             this.PocetPokusuPopisek.TabIndex = 21;
@@ -231,7 +230,7 @@
             // 
             this.labelHodnotaPocetPokusu.AutoSize = true;
             this.labelHodnotaPocetPokusu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHodnotaPocetPokusu.Location = new System.Drawing.Point(653, 76);
+            this.labelHodnotaPocetPokusu.Location = new System.Drawing.Point(391, 94);
             this.labelHodnotaPocetPokusu.Name = "labelHodnotaPocetPokusu";
             this.labelHodnotaPocetPokusu.Size = new System.Drawing.Size(24, 25);
             this.labelHodnotaPocetPokusu.TabIndex = 22;
@@ -246,10 +245,10 @@
             // labelJmenoHrace
             // 
             this.labelJmenoHrace.AutoSize = true;
-            this.labelJmenoHrace.Font = new System.Drawing.Font("Monotype Corsiva", 18F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelJmenoHrace.Location = new System.Drawing.Point(89, 70);
+            this.labelJmenoHrace.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelJmenoHrace.Location = new System.Drawing.Point(58, 44);
             this.labelJmenoHrace.Name = "labelJmenoHrace";
-            this.labelJmenoHrace.Size = new System.Drawing.Size(101, 37);
+            this.labelJmenoHrace.Size = new System.Drawing.Size(141, 39);
             this.labelJmenoHrace.TabIndex = 23;
             this.labelJmenoHrace.Text = "hráčxxx";
             // 
@@ -259,7 +258,7 @@
             this.labelKonecHry.BackColor = System.Drawing.Color.Transparent;
             this.labelKonecHry.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelKonecHry.ForeColor = System.Drawing.Color.BlueViolet;
-            this.labelKonecHry.Location = new System.Drawing.Point(290, 237);
+            this.labelKonecHry.Location = new System.Drawing.Point(58, 39);
             this.labelKonecHry.Name = "labelKonecHry";
             this.labelKonecHry.Size = new System.Drawing.Size(205, 44);
             this.labelKonecHry.TabIndex = 25;
@@ -271,7 +270,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(782, 403);
+            this.ClientSize = new System.Drawing.Size(592, 403);
             this.Controls.Add(this.labelKonecHry);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.labelJmenoHrace);

@@ -24,20 +24,24 @@ namespace Pexeso
         /// <param name="e"></param>
         private void NovaHraToolStripMenuItem_Click(Object sender, EventArgs e)
         {
+            NovaHra();
+
+        }
+
+        private void NovaHra()
+        {
             //Otevre se dialog Nova hra
             OknoNovaHra oknoNovaHra = new OknoNovaHra(NactiPoloveneVelikostiHryDoPodmenuNovaHra(pexeso), 4);
             oknoNovaHra.ShowDialog(); //ShowDialog otevre modalni okno, ktere se musi zavrit cancelem nebo ok, Show() okno otevre jako druhe oknu a lze volne prechazet k rozehrane hre a to zde nechceme.
             if (oknoNovaHra.DialogResult == DialogResult.OK)
             {
                 //pokud je dialog Nova hra uzavren potvrzenim OK, pak se prenastavi parametry inst. pexeso a reinicializuje se OknoPexeso
+
                 pexeso = new LogikaHry(oknoNovaHra.PocetKarticekVeHre, oknoNovaHra.zadaniHraciVeHre, oknoNovaHra.pocetHracu);
                 MessageBox.Show($"Pocet hracu bude {pexeso.PocetHracu} a karet ve hre bude {pexeso.PocetKarticekVeHre}.");
                 InicializujNoveOkno();
-                //prida do databaze informace o hre, hracich a idHry a idHracu do jejich instanci
-                PridejDataDoDataBaze();
 
             }
-
         }
 
         /// <summary>
