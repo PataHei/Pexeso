@@ -78,7 +78,6 @@ namespace Pexeso
             Karticky = new PictureBox[pexeso.PocetKarticekVeHre]; //pamatuje si vsechny karticky PictureBoxy ve hre
             //VyrazeneKarticky = new object[pexeso.PocetKarticekVeHre];//uklada index k obrazku v poli obrazky[], ktery byl puvodne v Picture.Tag. Informace se ulozi pod stejny index jako ma karticka v poli Karticky.
             RozdejKarty();
-            labelKonecHry.Visible = false;
             //nastaveni sirky menuStrip1 podle sirky okna
             this.menuStrip1.MinimumSize = new Size(this.Size.Width, 28); //prapodivne chovani, kdy je potreba sirku striptu nastavovat pres MinimumSize aby se pak podle neho aktualizovalo Size
             // zobrazeni hernich vysledku a dalsi info v picture boxu
@@ -92,11 +91,11 @@ namespace Pexeso
             //prace s sql
             //prida do databaze informace o hre, hracich a idHry a idHracu do jejich instanci
             PridejDataDoDataBaze();
-
-            OknoKonecHry konce = new OknoKonecHry(pexeso);
-            konce.Show();
+            
+            //OtevriDialogKonecHry(); - jen pro ucely testovani
 
         }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -244,7 +243,7 @@ namespace Pexeso
         {
             if (pexeso.JeKonecHry())
             {
-                labelKonecHry.Visible = true;
+                
                 PraceSDatabazi ulozHruDoDatabaze = new PraceSDatabazi();
                 for (int i = 0; i < pexeso.seznamHracu.Length ; i++)
                 {
@@ -255,7 +254,7 @@ namespace Pexeso
                     }
                     
                 }
-                
+                OtevriDialogKonecHry();
             }
         }
 

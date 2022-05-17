@@ -53,7 +53,6 @@
             this.labelHodnotaPocetPokusu = new System.Windows.Forms.Label();
             this.openFileDialogOtevriHru = new System.Windows.Forms.OpenFileDialog();
             this.labelJmenoHrace = new System.Windows.Forms.Label();
-            this.labelKonecHry = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -248,22 +247,9 @@
             this.labelJmenoHrace.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelJmenoHrace.Location = new System.Drawing.Point(58, 44);
             this.labelJmenoHrace.Name = "labelJmenoHrace";
-            this.labelJmenoHrace.Size = new System.Drawing.Size(141, 39);
+            this.labelJmenoHrace.Size = new System.Drawing.Size(139, 38);
             this.labelJmenoHrace.TabIndex = 23;
             this.labelJmenoHrace.Text = "hráčxxx";
-            // 
-            // labelKonecHry
-            // 
-            this.labelKonecHry.AutoSize = true;
-            this.labelKonecHry.BackColor = System.Drawing.Color.Transparent;
-            this.labelKonecHry.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelKonecHry.ForeColor = System.Drawing.Color.BlueViolet;
-            this.labelKonecHry.Location = new System.Drawing.Point(58, 39);
-            this.labelKonecHry.Name = "labelKonecHry";
-            this.labelKonecHry.Size = new System.Drawing.Size(205, 44);
-            this.labelKonecHry.TabIndex = 25;
-            this.labelKonecHry.Text = "Konec Hry";
-            this.labelKonecHry.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // OknoPexeso
             // 
@@ -271,7 +257,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(592, 403);
-            this.Controls.Add(this.labelKonecHry);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.labelJmenoHrace);
             this.Controls.Add(this.labelHodnotaPocetPokusu);
@@ -317,7 +302,6 @@
         private System.Windows.Forms.ToolStripMenuItem načtiHruToolStripMenuItem;
         private System.Windows.Forms.Label labelJmenoHrace;
         public System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.Label labelKonecHry;
     }
 }
 

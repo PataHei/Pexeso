@@ -13,7 +13,20 @@ namespace Pexeso
     /// Parcialni trida se stara o menu polozky v zahlavi okna OknoPexesa.
     /// </summary>
     public partial class OknoPexeso : Form
-    { 
+    {
+        /// <summary>
+        /// Otevre dialog po dohrani hry - neni mezi tool Strips
+        /// </summary>
+        private void OtevriDialogKonecHry()
+        {
+            OknoKonecHry konce = new OknoKonecHry(pexeso);
+            konce.ShowDialog();
+            if (konce.DialogResult == DialogResult.OK)
+            { 
+                ZalozNovouHru();
+            }
+        }
+
         //TOOL STRIPS - menu v zahlavy
 
         //VOLANI NOVE HRY
@@ -24,11 +37,10 @@ namespace Pexeso
         /// <param name="e"></param>
         private void NovaHraToolStripMenuItem_Click(Object sender, EventArgs e)
         {
-            NovaHra();
-
+            ZalozNovouHru();
         }
 
-        private void NovaHra()
+        private void ZalozNovouHru()
         {
             //Otevre se dialog Nova hra
             OknoNovaHra oknoNovaHra = new OknoNovaHra(NactiPoloveneVelikostiHryDoPodmenuNovaHra(pexeso), 4);
@@ -39,7 +51,7 @@ namespace Pexeso
 
                 pexeso = new LogikaHry(oknoNovaHra.PocetKarticekVeHre, oknoNovaHra.zadaniHraciVeHre, oknoNovaHra.pocetHracu);
                 MessageBox.Show($"Pocet hracu bude {pexeso.PocetHracu} a karet ve hre bude {pexeso.PocetKarticekVeHre}.");
-                InicializujNoveOkno();
+                this.InicializujNoveOkno();
 
             }
         }
