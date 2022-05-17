@@ -30,7 +30,7 @@ namespace Pexeso
         /// <param name="maxPocetHracuVeHre"></param>
         private void VytvorLabelyVysledkuHryVRadku()
         {
-            Hrac[] poradiHracu = SeratHracePodlePoradiVeHre(pexeso.seznamHracu);
+            Hrac[] poradiHracu = SeradHracePodlePoradiVeHre(pexeso.seznamHracu);
             for (int i = 0; i < pexeso.PocetHracu; i++)
             {
                 VytvorLabel(i+1, 0, (i+1).ToString() + ".",  labelHPoradi);
@@ -62,10 +62,10 @@ namespace Pexeso
 
         }
 
-        private Hrac[] SeratHracePodlePoradiVeHre(Hrac[] hraci)
+        private Hrac[] SeradHracePodlePoradiVeHre(Hrac[] hraci)
         {
             IQueryable hraciQ = hraci.AsQueryable();
-            IEnumerable<Hrac> hraciDistintovani = hraci.Distinct();
+            IEnumerable<Hrac> hraciDistintovani = hraci.Where(hrac => hrac != null).Distinct();
             return hraciDistintovani.OrderByDescending(hrac => hrac.Skore).ToArray();
         }
 

@@ -20,7 +20,6 @@ namespace Pexeso
         private ComboBox comboBoxPocetKarticek;
         private Label labelhrac1;
         private ComboBox comboBoxJmenoHrace1;
-        private TextBox textBoxNoveJmeno;
         private Label label1;
 
 
@@ -35,7 +34,6 @@ namespace Pexeso
             this.comboBoxPocetKarticek = new System.Windows.Forms.ComboBox();
             this.labelhrac1 = new System.Windows.Forms.Label();
             this.comboBoxJmenoHrace1 = new System.Windows.Forms.ComboBox();
-            this.textBoxNoveJmeno = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPocetHracu)).BeginInit();
             this.SuspendLayout();
             // 
@@ -138,8 +136,6 @@ namespace Pexeso
             // 
             this.comboBoxJmenoHrace1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxJmenoHrace1.FormattingEnabled = true;
-            this.comboBoxJmenoHrace1.Items.AddRange(new object[] {
-            "přidat jméno"});
             this.comboBoxJmenoHrace1.Location = new System.Drawing.Point(126, 124);
             this.comboBoxJmenoHrace1.MaxLength = 25;
             this.comboBoxJmenoHrace1.Name = "comboBoxJmenoHrace1";
@@ -149,22 +145,11 @@ namespace Pexeso
             this.comboBoxJmenoHrace1.SelectedValueChanged += new System.EventHandler(this.ComboBoxJmenoHrace_SelectedValueChanged);
             this.comboBoxJmenoHrace1.TextChanged += new System.EventHandler(this.ComboBoxJmenoHrace_TextChanged);
             // 
-            // textBoxNoveJmeno
-            // 
-            this.textBoxNoveJmeno.Enabled = false;
-            this.textBoxNoveJmeno.Location = new System.Drawing.Point(404, 128);
-            this.textBoxNoveJmeno.MaxLength = 20;
-            this.textBoxNoveJmeno.Name = "textBoxNoveJmeno";
-            this.textBoxNoveJmeno.Size = new System.Drawing.Size(169, 22);
-            this.textBoxNoveJmeno.TabIndex = 12;
-            this.textBoxNoveJmeno.Text = "zadej nove jmeno";
-            // 
             // OknoNovaHra
             // 
             this.AcceptButton = this.buttonVytvor;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(628, 383);
-            this.Controls.Add(this.textBoxNoveJmeno);
             this.Controls.Add(this.comboBoxJmenoHrace1);
             this.Controls.Add(this.labelhrac1);
             this.Controls.Add(this.comboBoxPocetKarticek);
@@ -174,6 +159,7 @@ namespace Pexeso
             this.Controls.Add(this.numericUpDownPocetHracu);
             this.Controls.Add(this.labelPocetKartiček);
             this.Controls.Add(this.labelPocetHracu);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "OknoNovaHra";
             this.Text = "Nová hra";

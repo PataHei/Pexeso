@@ -130,7 +130,7 @@ namespace Pexeso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(797, 450);
             this.Controls.Add(this.buttonNovaHra);
             this.Controls.Add(this.buttonKonec);
             this.Controls.Add(this.label5);
@@ -138,7 +138,9 @@ namespace Pexeso
             this.Controls.Add(this.labelHPocetTahu);
             this.Controls.Add(this.labelHSkore);
             this.Controls.Add(this.labelHHraci);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "OknoKonecHry";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Konec hry";
             ((System.ComponentModel.ISupportInitialize)(this.dataPexesoDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataPexesoDataSetBindingSource)).EndInit();

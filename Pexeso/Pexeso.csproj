@@ -104,6 +104,12 @@
     <Compile Include="OknoPexeso.Designer.cs">
       <DependentUpon>OknoPexeso.cs</DependentUpon>
     </Compile>
+    <Compile Include="OknoStatistiky.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OknoStatistiky.Designer.cs">
+      <DependentUpon>OknoStatistiky.cs</DependentUpon>
+    </Compile>
     <Compile Include="PraceSDatabazi.cs" />
     <Compile Include="PraceSxml.cs" />
     <Compile Include="Program.cs" />
