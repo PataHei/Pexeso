@@ -1,2 +1,6 @@
 # Pexeso
-2.0 verze refaktoruje metody s cilem zobecnit a zprehlednit puvodni kod.
+verse 3.1: 
+Zalozeni hry vice hracu, volitelny pocet karet. 
+Ukladani statistik vysledku. 
+Zobrazeni vysledku aktualni hry.
+
