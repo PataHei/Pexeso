@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -52,6 +67,31 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataPexesoDataSet.cs">
+      <DependentUpon>DataPexesoDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataPexesoDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataPexesoDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OknoKonecHry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OknoKonecHry.Designer.cs">
+      <DependentUpon>OknoKonecHry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OknoNovaHra.Metody.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OknoNovaHra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Hrac.cs" />
+    <Compile Include="OknoPexeso.MenuStrips.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogikaHry.cs" />
     <Compile Include="Napoveda.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +104,14 @@
     <Compile Include="OknoPexeso.Designer.cs">
       <DependentUpon>OknoPexeso.cs</DependentUpon>
     </Compile>
+    <Compile Include="OknoStatistiky.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OknoStatistiky.Designer.cs">
+      <DependentUpon>OknoStatistiky.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PraceSDatabazi.cs" />
+    <Compile Include="PraceSxml.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutBox1.resx">
@@ -71,6 +119,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Napoveda.resx">
       <DependentUpon>Napoveda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OknoKonecHry.resx">
+      <DependentUpon>OknoKonecHry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OknoNovaHra.resx">
+      <DependentUpon>OknoNovaHra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OknoPexeso.resx">
       <DependentUpon>OknoPexeso.cs</DependentUpon>
@@ -85,6 +139,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="DataPexesoDataSet.xsc">
+      <DependentUpon>DataPexesoDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DataPexesoDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataPexesoDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataPexesoDataSet.xss">
+      <DependentUpon>DataPexesoDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -189,12 +254,31 @@
     <None Include="obrazky\030-wooden mug.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DataPexeso.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataPexeso_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>DataPexeso.mdf</DependentUpon>
+    </Content>
     <Content Include="Image License.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
