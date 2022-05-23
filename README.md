@@ -1,6 +1,14 @@
 # Pexeso
+```
 verse 3.1: 
+```
+### Hotove málo testované:
+```
 Zalozeni hry vice hracu, volitelny pocet karet. 
-Ukladani statistik vysledku. 
-Zobrazeni vysledku aktualni hry.
-
+Ukládání rozhrané hry do xml a opětovné načtení.
+Ukladani statistik vysledku do sql databaze. 
+Zobrazeni výsledků aktualní hry.
+```
+### Započaté:
+```
+Zobrazení statistik her a hračů.
